@@ -1,6 +1,5 @@
 <?php
 require_once '../src/controleur/_controleurs.php';
-// require_once '../src/controleur/inscrireControleur.php';
 
 function getPage(){
     $lesPages['accueil'] = "accueilControleur"; 
@@ -21,7 +20,5 @@ function getPage(){
     }
     return $contenu;
 }
-
-
 
 ?>
