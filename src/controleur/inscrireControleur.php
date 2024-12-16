@@ -1,10 +1,13 @@
 <?php
-function inscrireControleur($twig){
+
+function inscrireControleur($twig, $db){
     $form = array();
     if (isset($_POST['btInscrire'])){
         $inputEmail = $_POST['inputEmail'];
         $inputPassword = $_POST['inputPassword'];
         $inputPassword2 =$_POST['inputPassword2'];
+        $nom = $_POST['nom'];
+        $prenom = $_POST['prenom'];
         $role = $_POST['role'];
         $form['valide']= true;
         if ($inputPassword!=$inputPassword2){

@@ -16,5 +16,8 @@ function mentionsLegalesControleur($twig){
     echo $twig->render('mentionsLegales.html.twig', array());
 }
 
+function maintenanceControleur($twig){
+    echo $twig->render('maintenance.html.twig', array());
+}
 
 ?>
