@@ -9,6 +9,7 @@ function getPage($db){
     $lesPages['aPropos'] = "aProposControleur";
     $lesPages['inscrire']="inscrireControleur";
     $lesPages['maintenance']="maintenanceControleur";
+    $lesPages['connexion']="connexionControleur";
 
     if ($db!=null) {
         if(isset($_GET['page'])){
