@@ -13,7 +13,7 @@ function connexionControleur($twig, $db){
             if(!password_verify($inputPassword,$unUtilisateur['mdp'])){
                 $form['valide'] = false;
                 $form['message'] = 'Login ou mot de passe incorrect';
-            } else {
+            } else { 
                 header("Location:index.php");
             }
         } else {
@@ -21,6 +21,7 @@ function connexionControleur($twig, $db){
             $form['message'] = 'Login ou mot de passe incorrect';
         }
     }
+
     echo $twig->render('connexion.html.twig', array('form'=>$form));
 }
 ?>

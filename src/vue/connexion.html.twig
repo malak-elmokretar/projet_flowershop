@@ -4,6 +4,7 @@
 
 {% block contenu %}
 {{ parent() }}
+
 {# {% if form.valide is defined %} 
     {% if form.valide == true %}
         <h1>Connexion réussie !</h1>
@@ -18,7 +19,20 @@
     <h1>Erreur : {{form.message}}</h1>
     <h1><a href="index.php?page=inscrire">Retourner sur la page d'inscription</a></h1>
 {% endif %}
-{% else %}  #}
+{% else %} #}
+
+
+{% if form.valide is defined %}
+    {% if form.valide == true %}
+        <h1>Connexion réussie</h1>
+        <h1>Voici votre identifiant : {{form.email}}</h1>
+    {# {% endif %}  #}
+    {% else %}
+    <h1>Echec de la connexion</h1>
+    <h1>Erreur : {{form.message}}</h1>
+    <h1><a href="index.php?page=connexion">Retourner sur la page de connexion</a></h1>
+{% endif %}
+{% else %}
 
 
 {# TEST #}
@@ -31,8 +45,8 @@
 
     <label for="inputPassword" class="sr-only">Mot de passe :</label>
     <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Mot de passe" required>
-
+    <br>
     <button class="btn btn-lg btn-primary btn-block" type="submit" name="btConnexion">Se connecter</button>
 </form>
-{# {% endif %} #}
+{% endif %}
 {% endblock %}

@@ -6,7 +6,7 @@
 {{ parent() }}
 {% if form.valide is defined %} 
     {% if form.valide == true %}
-        <h1>Inscription réussie</h1>
+        <h1>Connexion réussie</h1>
         <h1>Voici votre identifiant : {{form.email}}</h1>
         {% if form.role == 1 %}
         <h1>Vous êtes administrateur du site</h1>
@@ -40,6 +40,7 @@
     <input type="password" id="inputPassword2" name="inputPassword2" class="form-control" placeholder="Confirmation mot de passe" required>
 
 
+    <label for="role" class="sr-only">Choisir le rôle :</label>
     <select class="form-control" name="role">
         <option value="1">Administrateur</option>
         <option value="2">Client</option>
