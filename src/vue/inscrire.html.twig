@@ -1,0 +1,60 @@
+{% extends "base.html.twig" %}
+
+{% block title %} {{ parent() }}Inscription{% endblock %}
+
+{% block contenu %}
+{{ parent() }}
+{% if form.valide is defined %} 
+    {% if form.valide == true %}
+        <h1>Connexion réussie</h1>
+        <h1>Voici votre identifiant : {{form.email}}</h1>
+        {% if form.role == 1 %}
+        <h1>Vous êtes administrateur du site</h1>
+    {% else %}
+        <h1>Vous êtes un client du site </h1>
+    {% endif %}
+{% else %}
+    <h1>Échec de l'inscription</h1>
+    <h1>Erreur : {{form.message}}</h1>
+    <h1><a href="index.php?page=inscrire">Retourner sur la page d'inscription</a></h1>
+{% endif %}
+{% else %} 
+
+<form action="index.php?page=inscrire" method="post" enctype="application/x-www-form- urlencoded">
+    <h1>Inscrivez-vous sur L'atelier des fleurs</h1>
+    
+
+    <label for="inputNom" class="sr-only">Nom :</label>
+    <input type="text" id="inputNom" name="nom" class="form-control" placeholder="Doe" required autofocus>
+
+    <label for="inputPrenom" class="sr-only">Prénom :</label>
+    <input type="text" id="inputPrenom" name="prenom" class="form-control" placeholder="Jane" required autofocus>
+
+    
+    <label for="inputEmail" class="sr-only">E-mail :</label>
+    <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="email@example.com" required autofocus>
+
+    <label for="inputPassword" class="sr-only">Mot de passe :</label>
+    <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Mot de passe" required>
+
+    <label for="inputPassword2" class="sr-only">Confirmer le mot de passe :</label>
+    <input type="password" id="inputPassword2" name="inputPassword2" class="form-control" placeholder="Confirmation mot de passe" required>
+
+
+    <label for="role" class="sr-only">Choisir le rôle :</label>
+    <select class="form-control" name="role">
+        <option value="1">Administrateur</option>
+        <option value="2">Client</option>
+    </select>
+
+    <input type="checkbox" id="acceptCGU" name="acceptCGU" required autofocus>
+    <label for="acceptCGU" class="sr-only">En cochant je déclare avoir lu et accepté les <a href="#">Conditions Générales d'Utilisation</a></label>
+    {# <br>
+    <input type="checkbox" id="acceptCGU" name="acceptCGV" required autofocus>
+    <label for="acceptCGU" class="sr-only">En cochant je déclare avoir lu et accepté les <a href="#">Conditions Générales de Vente</a></label> #}
+    <br>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" name="btInscrire">S'inscrire</button>
+    <h2>Déjà un compte? <a href="index.php?page=connexion">Connectez-vous</a></h2>
+</form>
+{% endif %}
+{% endblock %}

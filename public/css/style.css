@@ -1,0 +1,146 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    /* background-color: aqua; */
+}
+
+
+@font-face {
+    font-family: "Billing Lottre";
+    src: url("../fonts/billing_lottre/BillingLottre-Regular.otf") format('opentype');
+}
+
+@font-face {
+    font-family: "Horge";
+    src: url("../fonts/horge/Horge.otf") format('opentype');
+}
+
+@font-face {
+    font-family: "White Dream";
+    src: url("../fonts/white_dream/WhiteDreamPERSONALUSEONLY-Regular.otf") format('opentype');
+}
+
+@font-face {
+    font-family: "Makes you stronger";
+    src: url("../fonts/kg_makes_you_stronger/KGMakesYouStronger.ttf") format('truetype');
+}
+
+
+nav{
+    display: flex;
+}
+.accueil_page {
+    margin: 0;
+    padding: 0;
+    color: white;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(rgba(40, 45, 40, 0.5), rgba(40, 45, 40, 0.5)), url("../images/background2.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* font-family: "Billing Lottre"; */
+}
+
+div.accueil_page h1.brand{
+    font-family: "Makes you stronger";
+}
+
+/* .accueil_page2 {
+    margin: 0;
+    padding: 0;
+    color: white;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(rgba(40, 45, 40, 0.5), rgba(40, 45, 40, 0.5)), url("../images/background2.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: "White Dream";
+}
+
+.accueil_page3 {
+    margin: 0;
+    padding: 0;
+    color: white;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/background3.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: "Horge";
+}
+
+h1.accueil_page1{
+    font-family: "Billing Lottre";
+    color: yellow;
+}
+h1.accueil_page2{
+    font-family:"White Dream";
+}
+
+h1.accueil_page3{
+    font-family:"Makes you stronger";
+color: brown;
+}
+
+h2.accueil_page3{
+    font-family:"Horge";
+color: brown;
+}
+
+.accueil_page4 {
+    margin: 0;
+    padding: 0;
+    color: white;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/background4.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.accueil_page5 {
+    margin: 0;
+    padding: 0;
+    color: white;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/background5.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.accueil_page6 {
+    margin: 0;
+    padding: 0;
+    color: white;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/background6.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.accueil_page7 {
+    margin: 0;
+    padding: 0;
+    color: white;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/background7.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+} */
+
+.btn{
+	background-color: #B89CC2;
+    /* color:#e89CC2; */
+} 
+
+
+
+/* https://dribbble.com/shots/21248179-App-UI */
