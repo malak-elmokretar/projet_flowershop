@@ -4,7 +4,6 @@ require_once '../src/controleur/_controleurs.php';
 // require_once './connexion.php';
 
 function getPage($db){
-function getPage($db){
     $lesPages['accueil'] = "accueilControleur"; 
     $lesPages['contact'] = "contactControleur";
     $lesPages['mentionsLegales'] = "mentionsLegalesControleur";
