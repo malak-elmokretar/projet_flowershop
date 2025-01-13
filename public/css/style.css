@@ -2,7 +2,6 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100%;
-    /* background-color: aqua; */
 }
 
 
@@ -26,13 +25,25 @@ html, body {
     src: url("../fonts/kg_makes_you_stronger/KGMakesYouStronger.ttf") format('truetype');
 }
 
+@font-face {
+    font-family: "Wonderly";
+    src: url("../fonts/wonderly/Wonderly.otf") format('opentype');
+}
+
+@font-face {
+    font-family: "Simple Michael";
+    src: url("../fonts/simple_michael/SimpleMichael.otf") format('opentype');
+}
+
 
 nav{
     display: flex;
+    font-family: "Horge";
+    position:sticky;
 }
 .accueil_page {
     margin: 0;
-    padding: 0;
+    padding: 20;
     color: white;
     text-align: center;
     height: 100%;
@@ -43,99 +54,66 @@ nav{
     /* font-family: "Billing Lottre"; */
 }
 
-div.accueil_page h1.brand{
+.brand{
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center;    /* Centers vertically */
+    height: 100vh;
+}
+
+.brand h1{
+    font-family: "Simple Michael";
+}
+.brand h2{
     font-family: "Makes you stronger";
 }
 
-/* .accueil_page2 {
-    margin: 0;
-    padding: 0;
-    color: white;
-    text-align: center;
-    height: 100%;
-    width: 100%;
-    background: linear-gradient(rgba(40, 45, 40, 0.5), rgba(40, 45, 40, 0.5)), url("../images/background2.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    font-family: "White Dream";
+.suite_page{
+    position:absolute;
+    bottom:0px;
+    justify-content: center;
+    /* color: crimson; */
+    /* font-size: 50px; */
+
 }
 
-.accueil_page3 {
-    margin: 0;
-    padding: 0;
-    color: white;
-    text-align: center;
-    height: 100%;
-    width: 100%;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/background3.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    font-family: "Horge";
+
+div.form_inscription, div.form_connexion{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-h1.accueil_page1{
-    font-family: "Billing Lottre";
-    color: yellow;
-}
-h1.accueil_page2{
-    font-family:"White Dream";
+div.form_inscription .btn{
+    justify-content: center;
+}   
+
+/* .test h1{
+    font-family: "billing lottre";
+    font-size: 80px;
 }
 
-h1.accueil_page3{
-    font-family:"Makes you stronger";
-color: brown;
-}
-
-h2.accueil_page3{
+.test h2{
     font-family:"Horge";
-color: brown;
+    font-size: 80px;
 }
-
-.accueil_page4 {
-    margin: 0;
-    padding: 0;
-    color: white;
-    text-align: center;
-    height: 100%;
-    width: 100%;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/background4.png");
-    background-repeat: no-repeat;
-    background-size: cover;
+.test h3{
+    font-family:"White Dream";
+    font-size: 80px;
 }
-.accueil_page5 {
-    margin: 0;
-    padding: 0;
-    color: white;
-    text-align: center;
-    height: 100%;
-    width: 100%;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/background5.png");
-    background-repeat: no-repeat;
-    background-size: cover;
+.test h4{
+    font-family:"Makes you stronger";
+    font-size: 80px;
 }
-.accueil_page6 {
-    margin: 0;
-    padding: 0;
-    color: white;
-    text-align: center;
-    height: 100%;
-    width: 100%;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/background6.png");
-    background-repeat: no-repeat;
-    background-size: cover;
+.test h5{
+    font-family:"Wonderly";
+    font-size: 80px;
 }
-.accueil_page7 {
-    margin: 0;
-    padding: 0;
-    color: white;
-    text-align: center;
-    height: 100%;
-    width: 100%;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/background7.png");
-    background-repeat: no-repeat;
-    background-size: cover;
+.test h6{
+    font-family:"Simple Michael";
+    font-size: 80px;
 } */
-
 .btn{
 	background-color: #B89CC2;
     /* color:#e89CC2; */

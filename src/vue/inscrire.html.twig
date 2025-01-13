@@ -19,7 +19,7 @@
     <h1><a href="index.php?page=inscrire">Retourner sur la page d'inscription</a></h1>
 {% endif %}
 {% else %} 
-
+<div class="form_inscription">
 <form action="index.php?page=inscrire" method="post" enctype="application/x-www-form- urlencoded">
     <h1>Inscrivez-vous sur L'atelier des fleurs</h1>
     
@@ -56,5 +56,6 @@
     <button class="btn btn-lg btn-primary btn-block" type="submit" name="btInscrire">S'inscrire</button>
     <h2>Déjà un compte? <a href="index.php?page=connexion">Connectez-vous</a></h2>
 </form>
+</div>
 {% endif %}
 {% endblock %}
