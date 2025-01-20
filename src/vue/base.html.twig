@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../public/images/logo.png">
     <link rel="stylesheet" href="../lib/vendor/bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../public/css/style.css">
     <link rel="stylesheet" href="../public/css/style.css">
@@ -12,7 +13,7 @@
     {% block contenu %}
       <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="./index.php">Navbar</a>
+          <a class="navbar-brand" href="./index.php"><img src="../public/images/logo.png" alt="Logo"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -23,6 +24,7 @@
                   <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="#">Saisons</a></li>
                     <li><a class="dropdown-item" href="#">Occasions</a></li>
+                    <li><a class="dropdown-item" href="#">Variétés</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="#">Tous nos produits</a></li>
                   </ul>
@@ -33,18 +35,6 @@
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="./index.php?page=connexion">Compte</a>
                 </li>
-                {# <li class="nav-item">
-                  <a class="nav-link" href="#">Blog</a>
-                </li> #}
-                {# <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Découvrir</a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Saisons</a></li>
-                    <li><a class="dropdown-item" href="#">Occasions</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Tous nos produits</a></li>
-                  </ul>
-                </li> #}
                 <li class="nav-item">
                   <a class="nav-link disabled">Administation</a>
                 </li>
@@ -56,19 +46,47 @@
             </div>
         </div>
       </nav>
-    {# <div class="container bg-light">
-    <h1 class="text-primary">L'atelier des pétales</h1>
-    </div> #}
     {% endblock %}
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="../lib/vendor/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
 <footer>
+
+  <div class="aPropos">
+    <span>À propos de La fabrique à pétales</span>
     <ul>
-      <li><a href="#">Contact</a></li>
-      <li><a href="#">Mention légales</a></li>
+      <li><a href="#">Qui sommes-nous ?</a></li>
+      <li><a href="#">Blog</a></li>
+      <li><a href="#">Le projet E5</a></li>
+      <li><a href="#">Contact</a>
     </ul>
+  </div>
+  
+  <div class="produits">
+    <span>Bouquets de fleurs</span>
+    <ul>
+      <li><a href="#">Par saisons</a></li>
+      <li><a href="#">Par occasions</a></li>
+      <li><a href="#">Par variétés</a></li>
+      <li><a href="#">Tous les produits</a></li>
+    </ul>
+  </div>
+  
+  <div class="plan_du_site">
+    <span>Plan du site</span>
+    <ul>
+      <li><a href="#">Mentions légales</a></li>
+      <li><a href="#">Accessibilité</a></li>
+      <li><a href="#">RGPD</a></li>
+      <li><a href="#">CGV</a></li>
+      <li><a href="#">M</a></li>
+    </ul>
+  </div>
+
+      {# <li><a href="#">Contact</a></li>
+      <li><a href="#">Mention légales</a></li> #}
+    {# </ul> #}
 </footer>
 </body>
 </html>

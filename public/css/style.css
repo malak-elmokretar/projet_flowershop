@@ -39,8 +39,14 @@ html, body {
 nav{
     display: flex;
     font-family: "Horge";
-    position:sticky;
+    position:fixed;
 }
+
+nav img{
+    width: 50px;
+    height: 50px;
+}
+
 .accueil_page {
     margin: 0;
     padding: 20;
@@ -55,69 +61,70 @@ nav{
 }
 
 .brand{
-    display: flex;
-    justify-content: center; /* Centers horizontally */
-    align-items: center;    /* Centers vertically */
-    height: 100vh;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    /* font-size: 18px; */
 }
 
 .brand h1{
     font-family: "Simple Michael";
+    font-size: 10vh;
 }
 .brand h2{
     font-family: "Makes you stronger";
+    font-size: 5vh;
 }
 
 .suite_page{
-    position:absolute;
-    bottom:0px;
-    justify-content: center;
-    /* color: crimson; */
-    /* font-size: 50px; */
+    position: absolute;
+    top: 75%;
+    width: 100%;
+    text-align: center;
+}
 
+.suite_page img{
+    height: 25vh;
+    width: 25vh;
 }
 
 
 div.form_inscription, div.form_connexion{
+    background-image: url('../images/logo.png');
+    background-repeat: no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
 
+
 div.form_inscription .btn{
     justify-content: center;
-}   
-
-/* .test h1{
-    font-family: "billing lottre";
-    font-size: 80px;
+    /* background-image: url('../images/logo.png'); */
 }
 
-.test h2{
-    font-family:"Horge";
-    font-size: 80px;
+footer{
+    background-color: #D8F1C6;
+    color: #F4C5CF;
+    display: flex;
 }
-.test h3{
-    font-family:"White Dream";
-    font-size: 80px;
+
+footer ul{
+    list-style-type: none;
 }
-.test h4{
-    font-family:"Makes you stronger";
-    font-size: 80px;
-}
-.test h5{
-    font-family:"Wonderly";
-    font-size: 80px;
-}
-.test h6{
-    font-family:"Simple Michael";
-    font-size: 80px;
-} */
+
 .btn{
-	background-color: #B89CC2;
+    background-color: #D8F1C6;
+	/* background-color: #B89CC2; */
     /* color:#e89CC2; */
+    border: #f4c5cf;
 } 
+
+.btn:hover{
+    background-color: #f4c5cf;
+}
 
 
 
