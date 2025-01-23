@@ -11,6 +11,7 @@ function getPage($db){
     $lesPages['inscription']="inscrireControleur";
     $lesPages['maintenance']="maintenanceControleur";
     $lesPages['connexion']="connexionControleur";
+    $lesPages['deconnexion']="deconnexionControleur";
 
     if ($db!=null) {
         if(isset($_GET['page'])){

@@ -8,7 +8,7 @@
 {% if formInscription.valide is defined %} 
     {% if formInscription.valide == true %}
         <h1>Connexion réussie</h1>
-        <h1>Voici votre identifiant : {{formInscription.email}}</h1>
+        <h1>Voici votre identifiant : {{formInscription.inputEmail}}</h1>
         {% if formInscription.role == 1 %}
         <h1>Vous êtes administrateur du site</h1>
     {% else %}
