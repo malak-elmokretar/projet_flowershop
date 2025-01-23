@@ -110,6 +110,7 @@ footer{
     background-color: #D8F1C6;
     color: #F4C5CF;
     display: flex;
+    justify-content: space-around;
 }
 
 footer ul{
