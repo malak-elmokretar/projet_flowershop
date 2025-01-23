@@ -93,6 +93,7 @@ nav img{
 div.form_inscription, div.form_connexion{
     background-image: url('../images/logo.png');
     background-repeat: no-repeat;
+    background-position: center;
     display: flex;
     justify-content: center;
     align-items: center;

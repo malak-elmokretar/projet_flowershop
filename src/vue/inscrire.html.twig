@@ -4,41 +4,42 @@
 
 {% block contenu %}
 {{ parent() }}
-{% if form.valide is defined %} 
-    {% if form.valide == true %}
+
+{% if formInscription.valide is defined %} 
+    {% if formInscription.valide == true %}
         <h1>Connexion réussie</h1>
-        <h1>Voici votre identifiant : {{form.email}}</h1>
-        {% if form.role == 1 %}
+        <h1>Voici votre identifiant : {{formInscription.email}}</h1>
+        {% if formInscription.role == 1 %}
         <h1>Vous êtes administrateur du site</h1>
     {% else %}
         <h1>Vous êtes un client du site </h1>
     {% endif %}
 {% else %}
     <h1>Échec de l'inscription</h1>
-    <h1>Erreur : {{form.message}}</h1>
+    <h1>Erreur : {{formInscription.message}}</h1>
     <h1><a href="index.php?page=inscrire">Retourner sur la page d'inscription</a></h1>
 {% endif %}
 {% else %} 
 <div class="form_inscription">
-<form action="index.php?page=inscrire" method="post" enctype="application/x-www-form- urlencoded">
+<form action="index.php?page=inscription" method="post" enctype="application/x-www-form-urlencoded">
     <h1>Inscrivez-vous sur L'atelier des fleurs</h1>
     
 
-    <label for="inputNom" class="sr-only">Nom :</label>
-    <input type="text" id="inputNom" name="nom" class="form-control" placeholder="Doe" required autofocus>
+    <label for="inputNomInscription" class="sr-only">Nom :</label>
+    <input type="text" id="inputNomInscription" name="nom" class="form-control" placeholder="Doe" required autofocus>
 
     <label for="inputPrenom" class="sr-only">Prénom :</label>
-    <input type="text" id="inputPrenom" name="prenom" class="form-control" placeholder="Jane" required autofocus>
+    <input type="text" id="inputPrenomInscription" name="prenom" class="form-control" placeholder="Jane" required autofocus>
 
     
     <label for="inputEmail" class="sr-only">E-mail :</label>
-    <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="email@example.com" required autofocus>
+    <input type="email" id="inputEmailInscription" name="inputEmailInscription" class="form-control" placeholder="email@example.com" required autofocus>
 
     <label for="inputPassword" class="sr-only">Mot de passe :</label>
-    <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Mot de passe" required>
+    <input type="password" id="inputPasswordInscription" name="inputPasswordInscription" class="form-control" placeholder="Mot de passe" required>
 
     <label for="inputPassword2" class="sr-only">Confirmer le mot de passe :</label>
-    <input type="password" id="inputPassword2" name="inputPassword2" class="form-control" placeholder="Confirmation mot de passe" required>
+    <input type="password" id="inputPassword2Inscription" name="inputPassword2Inscription" class="form-control" placeholder="Confirmation mot de passe" required>
 
 
     <label for="role" class="sr-only">Choisir le rôle :</label>
