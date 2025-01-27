@@ -128,6 +128,11 @@ footer ul{
     background-color: #f4c5cf;
 }
 
+.maintenance ul li{
+    list-style-image : url("../images/arrow_puce.png");
+}
+
+
 
 
 /* https://dribbble.com/shots/21248179-App-UI */
