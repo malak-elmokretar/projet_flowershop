@@ -10,7 +10,7 @@ class Utilisateur{
         $this->db = $db;
         $this->insert = $this->db->prepare("INSERT INTO utilisateur(email, mdp, nom, prenom, idRole) VALUES (:email, :mdp, :nom, :prenom, :role)");
         $this->connect = $this->db->prepare("SELECT email, idRole, mdp FROM utilisateur WHERE email=:email");
-        $this->select = $db->prepare("SELECT utilisateur.id, email, idRole, nom, prenom, libelle FROM utilisateur JOIN role ON utilisateur.idRole WHERE idRole = role.id ORDER BY nom");
+        $this->select = $db->prepare("SELECT utilisateur.id, email, idRole, nom, prenom, libelle FROM utilisateur JOIN role ON utilisateur.idRole = role.id WHERE idRole = role.id ORDER BY nom");
     }
  
     public function insert($email, $mdp, $role, $nom, $prenom){

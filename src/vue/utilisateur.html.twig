@@ -1,11 +1,12 @@
 {% extends "base.html.twig" %}
 {% block title %} {{ parent() }}Accueil{% endblock %}
 {% block contenu %}  {{ parent() }}
+
+{# <form> #}
 <div class="table-responsive">
     <table class="table">
         <thead>
             <tr>
-            <th>{{utilisateur.email}}</th>
                 <th scope="col">E-mail</th></th>
                 <th scope="col">Nom</th></th>
                 <th scope="col">Prénom</th></th>
@@ -30,4 +31,5 @@
             </tbody>
     </table>
 </div>
+{# </form> #}
 {% endblock %}
