@@ -1,0 +1,32 @@
+{% extends "base.html.twig" %}
+{% block title %} {{ parent() }}Accueil{% endblock %}
+{% block contenu %}  {{ parent() }}
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">E-mail</th></th>
+                <th scope="col">Nom</th></th>
+                <th scope="col">Prénom</th></th>
+                <th scope="col">Rôle</th></th>
+            </tr>
+        </thead>
+            <tbody>
+                {% for u in liste %}
+                    <tr>
+                        <td>{{u.email}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{u.nom}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{u.prenom}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{u.libellerole}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+    </table>
+</div>
+{% endblock %}

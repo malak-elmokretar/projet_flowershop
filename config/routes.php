@@ -8,10 +8,11 @@ function getPage($db){
     $lesPages['contact'] = "contactControleur";
     $lesPages['mentionsLegales'] = "mentionsLegalesControleur";
     $lesPages['aPropos'] = "aProposControleur";
-    $lesPages['inscription']="inscrireControleur";
-    $lesPages['maintenance']="maintenanceControleur";
-    $lesPages['connexion']="connexionControleur";
-    $lesPages['deconnexion']="deconnexionControleur";
+    $lesPages['inscription'] = "inscrireControleur";
+    $lesPages['maintenance'] = "maintenanceControleur";
+    $lesPages['connexion'] = "connexionControleur";
+    $lesPages['deconnexion'] = "deconnexionControleur";
+    $lesPages['utilisateur'] = "utilisateurControleur";
 
     if ($db!=null) {
         if(isset($_GET['page'])){
