@@ -107,14 +107,34 @@ div.form_inscription .btn{
 }
 
 footer{
-    background-color: #D8F1C6;
-    color: #F4C5CF;
+    background-color: #D7E2B6;
+    /* color: #FAA96C; */
     display: flex;
     justify-content: space-around;
 }
 
 footer ul{
     list-style-type: none;
+    /* color: #FF9F74; */
+}
+
+footer div span{
+    /* list-style-type: none; */
+    color: #9C3E22;
+    font-weight: bold;
+}
+footer ul li a{
+    width: max-content;
+    background-color: transparent;
+    color: #4B4B4B;
+    text-decoration: none;
+}
+
+footer ul li a:hover{
+    transition: all 0.2s ease;
+    color: #4B4B4B;
+    font-weight: bold;
+    text-decoration: underline dotted;
 }
 
 .btn{

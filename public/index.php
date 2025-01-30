@@ -13,7 +13,7 @@ require_once '../src/modele/_classes.php';
 $loader = new \Twig\Loader\FilesystemLoader('../src/vue/');
 $twig = $twig = new \Twig\Environment($loader, []);
 $twig->addGlobal('session', $_SESSION);
-var_dump($_SESSION);
+// var_dump($_SESSION);
 $db = connect($config);
 $contenu = getPage($db);
 $contenu($twig, $db);

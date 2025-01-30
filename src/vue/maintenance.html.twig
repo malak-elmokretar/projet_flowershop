@@ -2,7 +2,19 @@
 
 {% block title %} {{ parent() }} En maintenance {% endblock %}
 
-{% block contenu %} <h1>Le site est en maintenance, merci de revenir dans quelques minutes</h1> 
-<img src="../public/images/maintenance.png">
-<img src="../public/images/maintenance2.png">
+{% block contenu %}
+{# <h1>Le site est en maintenance, merci de revenir dans quelques minutes</h1>  #}
+{# <img src="../public/images/maintenance.png"> #}
+<div class="maintenance"><img src="../public/images/maintenance2.png" alt=""></div>
+<aside>
+    <h1>Oups !</h1>
+    <h2>Something went wrong</h2>
+    <h3>Notre équipe se charge de régler le problème</h3>
+    {# <div class="onetwothree"> #}
+        <span>Contacter notre équipe</span>
+        <span>Voir les autres projets</span>
+        {# <span></span> #}
+        <button></button>
+    {# </div> #}
+</aside>
 {% endblock %}
