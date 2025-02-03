@@ -1,5 +1,5 @@
 {% extends "base.html.twig" %}
-{% block title %} {{ parent() }}Accueil{% endblock %}
+{% block title %} {{ parent() }}Utilisateurs{% endblock %}
 {% block contenu %}  {{ parent() }}
 
 {# <form> #}
@@ -17,15 +17,9 @@
                 {% for utilisateur in liste %}
                     <tr>
                         <td>{{utilisateur.email}}</td>
-                    </tr>
-                    <tr>
                         <td>{{utilisateur.nom}}</td>
-                    </tr>
-                    <tr>
                         <td>{{utilisateur.prenom}}</td>
-                    </tr>
-                    <tr>
-                        <td>{{role.libelle}}</td>
+                        <td>{{utilisateur.libelle}}</td>
                     </tr>
                 {% endfor %}
             </tbody>

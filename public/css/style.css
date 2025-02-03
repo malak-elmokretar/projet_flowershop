@@ -111,6 +111,7 @@ footer{
     /* color: #FAA96C; */
     display: flex;
     justify-content: space-around;
+    position: static;
 }
 
 footer ul{
@@ -138,14 +139,14 @@ footer ul li a:hover{
 }
 
 .btn{
-    background-color: #D8F1C6;
+    background-color: #FAA96C;
 	/* background-color: #B89CC2; */
     /* color:#e89CC2; */
-    border: #f4c5cf;
+    border: #FAA96C;
 } 
 
 .btn:hover{
-    background-color: #f4c5cf;
+    background-color: #FF9F74;
 }
 
 .maintenance ul li{
@@ -156,3 +157,9 @@ footer ul li a:hover{
 
 
 /* https://dribbble.com/shots/21248179-App-UI */
+/* https://dribbble.com/shots/18894915-Flower-Store-App-Design */
+/* https://dribbble.com/shots/19553782--Website-for-a-flowers-shop-II */
+/* https://dribbble.com/shots/22564046-Magnolia-s-Florist-Website */
+/* https://dribbble.com/shots/16202368-Florist-Landingpage */
+/* https://dribbble.com/shots/17272076-Floristry-and-decor-studio-Website */
+/* https://dribbble.com/shots/19538842--Visual-Identity-for-a-flowers-shop-I */

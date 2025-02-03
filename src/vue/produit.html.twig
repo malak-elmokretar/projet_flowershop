@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %}
+{% block title %} {{ parent() }}Produits{% endblock %}
+{% block contenu %}  {{ parent() }}
+
+{# <form> #}
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">Description</th>
+                <th scope="col">Type</th>
+                <th scope="col">Saison</th>
+            </tr>
+        </thead>
+            <tbody>
+                {% for produit in liste %}
+                    <tr>
+                        <td>{{produit.nom}}</td>
+                        <td>{{produit.description}}</td>
+                        <td>{{produit.type}}</td>
+                        <td>{{produit.saison}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+    </table>
+</div>
+{# </form> #}
+{% endblock %}

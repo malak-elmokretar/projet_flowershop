@@ -1,17 +1,16 @@
 <?php
 require_once '../src/controleur/_controleurs.php';
-// require_once './connexion.php';
-// require_once './connexion.php';
 
 function getPage($db){
-    $lesPages['accueil'] = "accueilControleur"; 
-    $lesPages['contact'] = "contactControleur";
-    $lesPages['mentionsLegales'] = "mentionsLegalesControleur";
+    $lesPages['accueil'] = "accueilControleur";
     $lesPages['aPropos'] = "aProposControleur";
-    $lesPages['inscription'] = "inscrireControleur";
-    $lesPages['maintenance'] = "maintenanceControleur";
+    $lesPages['contact'] = "contactControleur";
     $lesPages['connexion'] = "connexionControleur";
     $lesPages['deconnexion'] = "deconnexionControleur";
+    $lesPages['inscription'] = "inscrireControleur";
+    $lesPages['maintenance'] = "maintenanceControleur";
+    $lesPages['mentionsLegales'] = "mentionsLegalesControleur";
+    $lesPages['produit'] = "produitControleur";
     $lesPages['utilisateur'] = "utilisateurControleur";
 
     if ($db!=null) {
