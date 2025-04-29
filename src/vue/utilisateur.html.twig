@@ -7,10 +7,11 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">E-mail</th></th>
-                <th scope="col">Nom</th></th>
-                <th scope="col">Prénom</th></th>
-                <th scope="col">Rôle</th></th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Rôle</th>
+                <th scope="col"></th>
             </tr>
         </thead>
             <tbody>
@@ -20,6 +21,7 @@
                         <td>{{utilisateur.nom}}</td>
                         <td>{{utilisateur.prenom}}</td>
                         <td>{{utilisateur.libelle}}</td>
+                        <td><a href="index.php?page=utilisateurModif&id={{utilisateur.idUtilisateur}}">Modifier</a></td>
                     </tr>
                 {% endfor %}
             </tbody>

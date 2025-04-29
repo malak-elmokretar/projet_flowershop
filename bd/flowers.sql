@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 05 fév. 2025 à 10:55
+-- Généré le : mar. 29 avr. 2025 à 15:44
 -- Version du serveur : 8.3.0
 -- Version de PHP : 8.2.18
 
@@ -25,6 +25,12 @@ DELIMITER $$
 --
 -- Procédures
 --
+DROP PROCEDURE IF EXISTS `ajouter_produit`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ajouter_produit` (`p_nom` VARCHAR(100), `p_description` TEXT, `p_prix` FLOAT, `p_idType` INT, `p_idSaison` INT)   BEGIN
+	INSERT INTO produit (nom, description, prix, idType, idSaison)
+    	VALUES (p_nom, p_description, p_prix, p_idType, p_idSaison);
+END$$
+
 DROP PROCEDURE IF EXISTS `connexion`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `connexion` (IN `p_email` VARCHAR(100))   BEGIN
 	SELECT email, idRole, mdp
@@ -37,11 +43,29 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `inscription` (IN `p_email` VARCHAR(
 	INSERT INTO utilisateur(email, mdp, nom, prenom, idRole) VALUES (p_email, p_mdp, p_nom, p_prenom, p_idRole);
 END$$
 
+DROP PROCEDURE IF EXISTS `lister_produits`$$
+CREATE DEFINER=`malak`@`%` PROCEDURE `lister_produits` ()   BEGIN
+	SELECT produit.id, produit.nom, description, prix, type.libelle, saison.nom_saison
+    FROM produit
+    LEFT JOIN saison ON produit.idSaison = saison.id
+    LEFT JOIN type ON produit.idType = type.id
+    ORDER BY produit.nom;
+END$$
+
 DROP PROCEDURE IF EXISTS `lister_utilisateurs`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `lister_utilisateurs` ()   BEGIN
+	SELECT email, idRole, nom, prenom, libelle
+    FROM utilisateur
+    JOIN role ON utilisateur.idRole = role.id
+    ORDER BY nom;
+END$$
+
+DROP PROCEDURE IF EXISTS `lister_utilisateurs_par_id`$$
+CREATE DEFINER=`malak`@`%` PROCEDURE `lister_utilisateurs_par_id` (IN `p_idUtilisateur` INT)   BEGIN
 	SELECT utilisateur.id, email, idRole, nom, prenom, libelle
     FROM utilisateur
     JOIN role ON utilisateur.idRole = role.id
+    WHERE utilisateur.id = p_idUtilisateur
     ORDER BY nom;
 END$$
 
@@ -106,11 +130,32 @@ INSERT INTO `role` (`id`, `libelle`) VALUES
 DROP TABLE IF EXISTS `saison`;
 CREATE TABLE IF NOT EXISTS `saison` (
   `id` tinyint NOT NULL AUTO_INCREMENT,
-  `nom` varchar(100) DEFAULT NULL,
+  `nom_saison` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `date_debut` date DEFAULT NULL,
   `date_fin` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `saison`
+--
+
+INSERT INTO `saison` (`id`, `nom_saison`, `date_debut`, `date_fin`) VALUES
+(1, 'Printemps', '2025-03-20', '2025-06-20'),
+(2, 'Été', '2025-06-21', '2025-09-21'),
+(3, 'Automne', '2025-09-22', '2025-12-20'),
+(4, 'Hiver', '2025-12-21', '2026-03-19'),
+(5, 'Saint Valentin', '2025-02-14', '2025-02-14'),
+(6, 'Nouvel an', '2025-12-31', '2026-01-01'),
+(7, 'Toussaint', '2025-11-01', '2025-11-01'),
+(8, 'Pâques', '2025-04-20', '2025-04-20'),
+(9, 'Fête des mères', '2025-05-05', '2025-05-05'),
+(10, 'Fête des pères', '2025-06-15', '2025-06-15'),
+(12, 'Félicitations', '2025-01-01', '2025-12-31'),
+(13, 'Naissance', '2025-01-01', '2025-12-31'),
+(14, 'Mariage', '2025-01-01', '2025-12-31'),
+(15, 'Deuil', '2025-01-01', '2025-12-31'),
+(16, 'Noël', '2025-12-24', '2025-12-25');
 
 -- --------------------------------------------------------
 
@@ -124,7 +169,16 @@ CREATE TABLE IF NOT EXISTS `type` (
   `libelle` varchar(100) DEFAULT NULL,
   `taille` enum('unite','petit','moyen','grand') DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `type`
+--
+
+INSERT INTO `type` (`id`, `libelle`, `taille`) VALUES
+(1, 'Petit bouquet', 'petit'),
+(2, 'Bouquet moyen', 'moyen'),
+(3, 'Grand bouquet', 'grand');
 
 -- --------------------------------------------------------
 
@@ -143,7 +197,7 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   KEY `idRole` (`idRole`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `utilisateur`
@@ -158,7 +212,9 @@ INSERT INTO `utilisateur` (`id`, `email`, `mdp`, `nom`, `prenom`, `idRole`) VALU
 (6, 'jBlick@hyzeuf.com', '$2y$10$M526jBo16cROl6OcEFM8r.ZSE0SqMDyTzJ6xnOYoUjelVfX03yNDq', 'Blick', 'Juliette', 2),
 (8, 'hammedikelian@gmail.com', '$2y$10$fxlqi8eIBW1UVBZ6YnjKmO.FTVpcFVon3KHR0JOBMYXmjY00SMnRS', 'kelian', 'kelian', 1),
 (9, 'malak@flower.com', '$2y$10$L9VoyhhilTazWSDLG6vS0eKSjnRqmGp3zjYvYmtgGQRaPe64HncZG', 'Malak', 'Malak', 2),
-(10, 'malakmalak@flower.com', '$2y$10$DI9QxhZXw5HkbU.7JoSi5.Eri2OewbiPyJlzL4oqZaowb4yAn1lQa', 'Malak', 'Malak', 2);
+(10, 'malakmalak@flower.com', '$2y$10$DI9QxhZXw5HkbU.7JoSi5.Eri2OewbiPyJlzL4oqZaowb4yAn1lQa', 'Malak', 'Malak', 2),
+(12, 'malak@gmail.com', 'malak', 'el mokretar', 'malak', 1),
+(13, 'malak@flower.fr', '$2y$10$4SXuD.0peWsyxhVnCNPSW.trsAtXnu/6aVW7NHuFo2RUDyBRa7Cy6', 'Malak', 'Malak', 1);
 
 -- --------------------------------------------------------
 

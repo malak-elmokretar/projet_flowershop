@@ -9,6 +9,7 @@
             <tr>
                 <th scope="col">Nom</th>
                 <th scope="col">Description</th>
+                <th scope="col">Prix</th>
                 <th scope="col">Type</th>
                 <th scope="col">Saison</th>
             </tr>
@@ -18,8 +19,9 @@
                     <tr>
                         <td>{{produit.nom}}</td>
                         <td>{{produit.description}}</td>
-                        <td>{{produit.type}}</td>
-                        <td>{{produit.saison}}</td>
+                        <td>{{produit.prix}}</td>
+                        <td>{{produit.libelle}}</td>
+                        <td>{{produit.nom_saison}}</td>
                     </tr>
                 {% endfor %}
             </tbody>

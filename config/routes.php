@@ -12,6 +12,7 @@ function getPage($db){
     $lesPages['mentionsLegales'] = "mentionsLegalesControleur";
     $lesPages['produit'] = "produitControleur";
     $lesPages['utilisateur'] = "utilisateurControleur";
+    $lesPages['utilisateurModif'] = "utilisateurModifControleur";
 
     if ($db!=null) {
         if(isset($_GET['page'])){

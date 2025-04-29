@@ -7,4 +7,8 @@ function utilisateurControleur($twig, $db){
     echo $twig->render('utilisateur.html.twig', array('form'=>$form,'liste'=>$liste));
 }
 
+function utilisateurModifControleur($twig, $db) {
+    echo $twig->render('utilisateurModif.html.twig', array('form'=>$form,'liste'=>$liste));
+}
+
 ?>
