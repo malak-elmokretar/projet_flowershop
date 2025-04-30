@@ -14,7 +14,7 @@ class Produit{
 
     public function insert($nom, $description, $prix, $idType, $idSaison){
         $r = true;
-        $this->insert->execute(array(':p_nom'=>$nom, ':p_description'=>$description, ':p_prix'=>$prix, ':p_libelle'=>$libelle, ':p_nom_saison'=>$nom_saison));
+        $this->insert->execute(array(':p_nom'=>$nom, ':p_description'=>$description, ':p_prix'=>$prix, ':p_libelle'=>$libelle, ':p_nomSaison'=>$nomSaison));
 
         if ($this->insert->errorCode()!=0){
             print_r($this->insert->errorInfo());

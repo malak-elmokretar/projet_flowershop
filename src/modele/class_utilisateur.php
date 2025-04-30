@@ -5,14 +5,14 @@ class Utilisateur{
     private $insert;
     private $connect;
     private $select;
-    private $selectByID;
+    private $selectById;
 
     public function __construct($db){
         $this->db = $db;
         $this->insert = $this->db->prepare("CALL inscription (:email, :mdp, :nom, :prenom, :role)");
         $this->connect = $this->db->prepare("CALL connexion (:email)");
         $this->select = $db->prepare("CALL lister_utilisateurs()");
-        $this->selectByID = $db->prepare("CALL lister_utilisateurs_par_id(:idUtilisateur)");
+        $this->selectById = $db->prepare("SELECT idUtilisateur, email, nom, prenom, idRole FROM utilisateur WHERE idUtilisateur=:idUtilisateur ORDER BY idUtilisateur");
     }
 
     public function insert($email, $mdp, $role, $nom, $prenom){
@@ -42,12 +42,15 @@ class Utilisateur{
         return $this->select->fetchAll();
     }
 
-    public function selectByID($idUtilisateur){
-        $this->selectByID->execute(array(":idUtilisateur" => $idUtilisateur));
-        if ($this->selectByID->errorCode()!=0){
-            print_r($this->selectByID->errorInfo());
+    public function selectById($id){
+        $this->selectById->execute(array(':idUtilisateur'=>$id));
+        if ($this->selectById->errorCode()!=0){
+            print_r($this->selectById->errorInfo());
         }
-        return $this->selectByID->fetch();
+        return $this->selectById->fetch();
     }
 }
+
+// interblocage
+// algo de marge stable
 ?>
