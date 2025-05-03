@@ -3,21 +3,14 @@
 {% block title %} {{ parent() }} En maintenance {% endblock %}
 
 {% block contenu %}
-<div
-    <img src="../public/images/maintenance2.png" alt="aaa">
-</div>
-<aside class="maintenance">
-    <h1>Oups...</h1>
-    <h2>Quelque chose ne va pas mais notre équipe se charge de régler le problème</h2>
-    <span>En attendant, vous pouvez :</span>
-    <ul>
-        <li>Contacter notre équipe</li>
-        <li>Voir nos autres projets</li>
-        {# <li></li> #}
-    </ul>
-    {# <h1>Le site est en maintenance, merci de revenir dans quelques minutes</h1> #}
-</aside>
 
-{# <img src="../public/images/maintenance.png"> #}
+    <div class="divMaintenance">
+        <div class="MaintenanceContent-box">
+            <h1>Nous revenons bientôt</h1>
+            <p>Notre site est en maintenance pour améliorer votre expérience. Nous reviendrons dans quelques instants.</p>
+            <p>Nous apprécions votre patience. Si vous avez besoin d'aide, n'hésitez pas à nous <a href="mailto:support@fleuriste.com" class="maintenanceContact-link">contacter</a>.</p>
+            <a href="/" class="btn btn-primary">Retour à l'accueil</a>
+        </div>
+    </div>
 
 {% endblock %}

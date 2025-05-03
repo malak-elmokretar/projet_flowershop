@@ -2,6 +2,9 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100%;
+    background-color: #f5f5f5;
+    font-family: 'Open Sans', sans-serif;
+    color: #3e3e3e;
 }
 
 
@@ -33,6 +36,11 @@ html, body {
 @font-face {
     font-family: "Simple Michael";
     src: url("../fonts/simple_michael/SimpleMichael.otf") format('opentype');
+}
+
+@font-face {
+    font-family: "Playfair Display";
+    src: url("../fonts/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf") format("truetype");
 }
 
 
@@ -107,7 +115,7 @@ div.form_inscription .btn{
 }
 
 footer{
-    background-color: #D7E2B6;
+    background-color: #3D482A;
     /* color: #FAA96C; */
     display: flex;
     justify-content: space-around;
@@ -121,19 +129,19 @@ footer ul{
 
 footer div span{
     /* list-style-type: none; */
-    color: #9C3E22;
+    color: #f2e3c2;
     font-weight: bold;
 }
 footer ul li a{
     width: max-content;
     background-color: transparent;
-    color: #4B4B4B;
+    color: #ebe5d5;
     text-decoration: none;
 }
 
 footer ul li a:hover{
     transition: all 0.2s ease;
-    color: #4B4B4B;
+    color: #f2e3c2;
     font-weight: bold;
     text-decoration: underline dotted;
 }
@@ -153,8 +161,65 @@ footer ul li a:hover{
     list-style-image : url("../images/arrow_puce.png");
 }
 
+.divMaintenance {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-image: url('../../public/images/.png'); /* Remplacer par l'image de fond subtile et élégante */
+    background-size: cover;
+    background-position: center;
+    color: #3e3e3e;
+    padding: 20px;
+}
 
+.MaintenanceContent-box {
+    background-color: rgba(255, 255, 255, 0.8); /* Fond clair et subtil */
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+}
 
+.divMaintenance h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: #3D482A; /* Vert apaisant */
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.divMaintenance p {
+    font-size: 1.25rem;
+    margin-bottom: 30px;
+    font-weight: 300;
+    color: #5f6366; /* Gris doux pour le texte */
+}
+
+.btn-primary {
+    background-color: #3D482A; /* Couleur d'accent douce et florale */
+    color: #EBE5D5;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.125rem;
+    border-radius: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+}
+.btn-primary:hover {
+    background-color: #2d4f3e; /* Teinte plus foncée au survol */
+}
+
+.maintenanceContact-link {
+    color: #d86f4f;
+    text-decoration: none;
+}
+.maintenanceContact-link:hover {
+    text-decoration: underline;
+}
 
 /* https://dribbble.com/shots/21248179-App-UI */
 /* https://dribbble.com/shots/18894915-Flower-Store-App-Design */
