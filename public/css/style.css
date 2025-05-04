@@ -43,6 +43,15 @@ html, body {
     src: url("../fonts/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf") format("truetype");
 }
 
+@font-face {
+    font-family: "Pilow lava";
+    src: url("../fonts/pilowlava-master/Fonts/Pilowlava-Regular.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "Made Mirage";
+    src: url("../fonts/made_mirage/MADE\ Mirage\ Regular\ PERSONAL\ USE.otf");
+}
 
 nav{
     display: flex;
@@ -65,7 +74,6 @@ nav img{
     background: linear-gradient(rgba(40, 45, 40, 0.5), rgba(40, 45, 40, 0.5)), url("../images/background2.png");
     background-repeat: no-repeat;
     background-size: cover;
-    /* font-family: "Billing Lottre"; */
 }
 
 .brand{
@@ -73,21 +81,21 @@ nav img{
     top: 50%;
     width: 100%;
     text-align: center;
-    /* font-size: 18px; */
 }
 
 .brand h1{
-    font-family: "Simple Michael";
-    font-size: 10vh;
+    font-family: "Pilow lava";
+    font-size: 25vh;
 }
 .brand h2{
-    font-family: "Makes you stronger";
+    font-family: "Made Mirage";
     font-size: 5vh;
+    margin-top: -7vh;
 }
 
 .suite_page{
     position: absolute;
-    top: 75%;
+    top: 85%;
     width: 100%;
     text-align: center;
 }
