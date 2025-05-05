@@ -14,6 +14,7 @@ class Utilisateur{
         $this->connect = $this->db->prepare("CALL connexion (:email)");
         $this->select = $db->prepare("CALL listerUtilisateurs()");
         $this->selectById = $db->prepare("SELECT idUtilisateur, email, nom, prenom, idRole FROM utilisateur WHERE idUtilisateur=:idUtilisateur ORDER BY idUtilisateur");
+        $this->update = $db->prepare("UPDATE utilisateur SET nom=:nom, prenom=:prenom, idRole=:role WHERE idUtilisateur=:idUtilisateur");
     }
 
     public function insert($email, $mdp, $role, $nom, $prenom){
@@ -49,6 +50,16 @@ class Utilisateur{
             print_r($this->selectById->errorInfo());
         }
         return $this->selectById->fetch();
+    }
+
+    public function update($id, $role, $nom, $prenom) {
+        $r = true;
+        $this->update->execute(array(":idUtilisateur"=>$id, ":role"=>$role, ":nom"=>$nom, ":prenom"=>$prenom));
+        if ($this->update->errorCode()!=0) {
+            print_r($this->update->errorInfo());
+            $r=false;
+        }
+        return $r;
     }
 }
 

@@ -16,10 +16,10 @@
                     <input type="email" id="inputEmailModification" name="inputEmailModification" class="form-control" placeholder="email@example.com" required autofocus value="{{form.utilisateur.email}}">
                     
                     <label for="inputPassword" class="sr-only">Mot de passe :</label>
-                    <input type="password" id="inputPasswordModification" name="inputPasswordModification" class="form-control" placeholder="Mot de passe" required>
+                    <input type="password" id="inputPasswordModification" name="inputPasswordModification" class="form-control" placeholder="Mot de passe">
     
                     <label for="inputPassword2" class="sr-only">Confirmer le mot de passe :</label>
-                    <input type="password" id="inputPassword2Modification" name="inputPassword2Modification" class="form-control" placeholder="Confirmation mot de passe" required>
+                    <input type="password" id="inputPassword2Modification" name="inputPassword2Modification" class="form-control" placeholder="Confirmation mot de passe">
             
                     <label for="role" class="sr-only">Choisir le rôle :</label>
                     <select class="form-control" name="role">
@@ -29,7 +29,7 @@
                             </option>
                         {% endfor %}
                     </select>
-                    
+                    <input type="hidden" name="id" value="{{ form.utilisateur.idUtilisateur }}"/>
                     <button class="btn btn-lg btn-primary btn-block" type="submit" name="btModifier">Modifier</button>
                 </form>
             </div>
