@@ -76,7 +76,7 @@ END$$
 DROP PROCEDURE IF EXISTS `modifierUtilisateur`$$
 CREATE DEFINER=`malak`@`%` PROCEDURE `modifierUtilisateur` (IN `p_idUtilisateur` INT, `p_email` VARCHAR(100), `p_nom` VARCHAR(100), `p_prenom` VARCHAR(100), `p_idRole` INT)   BEGIN
 	UPDATE utilisateur
-    SET nom = p_nom, prenom = p_prenom, idRole = p_role, email = p_email WHERE idUtilisateur = p_idUtilisateur;
+    SET nom = p_nom, prenom = p_prenom, idRole = p_idRole, email = p_email WHERE idUtilisateur = p_idUtilisateur;
 END$$
 
 DELIMITER ;

@@ -34,7 +34,7 @@ function inscrireControleur($twig, $db){
         $formInscription['valide']= true;
 
         if ($inputPassword != $inputPassword2){
-            $formInscription['valide'] = false; 
+            $formInscription['valide'] = false;
             $formInscription['message'] = 'Les mots de passe sont différents';
         } elseif (!verifierMdp($inputPassword)) {
             $formInscription['valide'] = false;

@@ -15,7 +15,7 @@ class Utilisateur{
         $this->connect = $this->db->prepare("CALL connexion (:email)");
         $this->select = $db->prepare("CALL listerUtilisateurs()");
         $this->selectById = $db->prepare("SELECT idUtilisateur, email, nom, prenom, idRole FROM utilisateur WHERE idUtilisateur=:idUtilisateur ORDER BY idUtilisateur");
-        $this->update = $db->prepare("CALL modifierUtilisateur(:nom, :prenom, :role, :email, :idUtilisateur)");
+        $this->update = $db->prepare("CALL modifierUtilisateur(:idUtilisateur, :email, :nom, :prenom, :role)");
     }
 
     public function insert($email, $mdp, $role, $nom, $prenom){
