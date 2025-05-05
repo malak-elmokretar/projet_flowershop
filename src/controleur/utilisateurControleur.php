@@ -23,9 +23,10 @@ function utilisateurModifControleur($twig, $db){
             $utilisateur = new Utilisateur($db);
             $nom = $_POST['nom'];
             $prenom = $_POST['prenom'];
+            $email = $_POST["inputEmailModification"];
             $role = $_POST['role'];
             $id = $_POST['id'];
-            $exec=$utilisateur->update($id, $role, $nom, $prenom);
+            $exec=$utilisateur->update($id, $role, $nom, $prenom, $email);
             if(!$exec){
                 $form['valide'] = false; 
                 $form['message'] = 'Echec de la modification';

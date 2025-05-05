@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 30 avr. 2025 à 09:34
+-- Généré le : lun. 05 mai 2025 à 14:21
 -- Version du serveur : 8.3.0
 -- Version de PHP : 8.2.18
 
@@ -25,8 +25,8 @@ DELIMITER $$
 --
 -- Procédures
 --
-DROP PROCEDURE IF EXISTS `ajouter_produit`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ajouter_produit` (`p_nom` VARCHAR(100), `p_description` TEXT, `p_prix` FLOAT, `p_idType` INT, `p_idSaison` INT)   BEGIN
+DROP PROCEDURE IF EXISTS `ajouterProduit`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ajouterProduit` (IN `p_nom` VARCHAR(100), IN `p_description` TEXT, IN `p_prix` FLOAT, IN `p_idType` INT, IN `p_idSaison` INT)   BEGIN
 	INSERT INTO produit (nom, description, prix, idType, idSaison)
     	VALUES (p_nom, p_description, p_prix, p_idType, p_idSaison);
 END$$
@@ -43,8 +43,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `inscription` (IN `p_email` VARCHAR(
 	INSERT INTO utilisateur(email, mdp, nom, prenom, idRole) VALUES (p_email, p_mdp, p_nom, p_prenom, p_idRole);
 END$$
 
-DROP PROCEDURE IF EXISTS `lister_produits`$$
-CREATE DEFINER=`malak`@`%` PROCEDURE `lister_produits` ()   BEGIN
+DROP PROCEDURE IF EXISTS `listerProduits`$$
+CREATE DEFINER=`malak`@`%` PROCEDURE `listerProduits` ()   BEGIN
 	SELECT produit.id, produit.nom, description, prix, type.libelle, saison.nomSaison
     FROM produit
     LEFT JOIN saison ON produit.idSaison = saison.id
@@ -52,24 +52,53 @@ CREATE DEFINER=`malak`@`%` PROCEDURE `lister_produits` ()   BEGIN
     ORDER BY produit.nom;
 END$$
 
-DROP PROCEDURE IF EXISTS `lister_utilisateurs`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `lister_utilisateurs` ()   BEGIN
+DROP PROCEDURE IF EXISTS `listerRoles`$$
+CREATE DEFINER=`malak`@`%` PROCEDURE `listerRoles` ()   BEGIN
+SELECT id, libelle FROM role;
+END$$
+
+DROP PROCEDURE IF EXISTS `listerUtilisateurs`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listerUtilisateurs` ()   BEGIN
 	SELECT utilisateur.idUtilisateur, email, idRole, nom, prenom, libelle
     FROM utilisateur
     JOIN role ON utilisateur.idRole = role.id
     ORDER BY nom;
 END$$
 
-DROP PROCEDURE IF EXISTS `lister_utilisateurs_par_id`$$
-CREATE DEFINER=`malak`@`%` PROCEDURE `lister_utilisateurs_par_id` (IN `p_idUtilisateur` INT)   BEGIN
-	SELECT utilisateur.id, email, idRole, nom, prenom, libelle
-    FROM utilisateur
-    JOIN role ON utilisateur.idRole = role.id
-    WHERE utilisateur.id = p_idUtilisateur
-    ORDER BY nom;
+DROP PROCEDURE IF EXISTS `listerUtilisateursParId`$$
+CREATE DEFINER=`malak`@`%` PROCEDURE `listerUtilisateursParId` (IN `p_idUtilisateur` INT)   BEGIN
+	SELECT idUtilisateur, email, nom, prenom, idRole
+	FROM utilisateur
+    WHERE idUtilisateur=p_idUtilisateur
+    ORDER BY idUtilisateur;
+END$$
+
+DROP PROCEDURE IF EXISTS `modifierUtilisateur`$$
+CREATE DEFINER=`malak`@`%` PROCEDURE `modifierUtilisateur` (IN `p_idUtilisateur` INT, `p_email` VARCHAR(100), `p_nom` VARCHAR(100), `p_prenom` VARCHAR(100), `p_idRole` INT)   BEGIN
+	UPDATE utilisateur
+    SET nom = p_nom, prenom = p_prenom, idRole = p_role, email = p_email WHERE idUtilisateur = p_idUtilisateur;
 END$$
 
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `fournisseur`
+--
+
+DROP TABLE IF EXISTS `fournisseur`;
+CREATE TABLE IF NOT EXISTS `fournisseur` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nom` varchar(100) DEFAULT NULL,
+  `adresse` varchar(100) DEFAULT NULL,
+  `ville` varchar(100) DEFAULT NULL,
+  `codePostal` int DEFAULT NULL,
+  `numeroTelephone` varchar(10) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `siteWeb` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -197,13 +226,16 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   PRIMARY KEY (`idUtilisateur`),
   UNIQUE KEY `email` (`email`),
   KEY `idRole` (`idRole`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `utilisateur`
 --
 
 INSERT INTO `utilisateur` (`idUtilisateur`, `email`, `mdp`, `nom`, `prenom`, `idRole`) VALUES
+(14, 'elmokretarmalak25@gmail.com', '$2y$10$M/Y8AWgYKKj8ycqPOfU9du85w4nP8fS6cOFc4Tn0mhBbcwMG4LhGS', 'EL MOKRETAR', 'Malak', 1),
+(15, 'malak@nabi.com', '$2y$10$ytR9QIvs2RKhDh2.DyUDXuIj.0ThPU2JmIdLrHLqTyFVSFEv4Dgn2', 'EL MOKRETAR', 'Malak', 1),
+(16, 'example@example.fr', '$2y$10$7uxD/FZuIypYauI40KK.reWRbPwG.lRwnYgOo38oOT.Yg.AYrCI3W', 'Doe', 'Jane', 2),
 (8, 'hammedikelian@gmail.com', '$2y$10$fxlqi8eIBW1UVBZ6YnjKmO.FTVpcFVon3KHR0JOBMYXmjY00SMnRS', 'kelian', 'kelian', 1);
 
 --

@@ -7,6 +7,7 @@ class Utilisateur{
     private $select;
     private $selectById;
     private $update;
+    private $updateMDP;
 
     public function __construct($db){
         $this->db = $db;
@@ -14,7 +15,7 @@ class Utilisateur{
         $this->connect = $this->db->prepare("CALL connexion (:email)");
         $this->select = $db->prepare("CALL listerUtilisateurs()");
         $this->selectById = $db->prepare("SELECT idUtilisateur, email, nom, prenom, idRole FROM utilisateur WHERE idUtilisateur=:idUtilisateur ORDER BY idUtilisateur");
-        $this->update = $db->prepare("UPDATE utilisateur SET nom=:nom, prenom=:prenom, idRole=:role WHERE idUtilisateur=:idUtilisateur");
+        $this->update = $db->prepare("CALL modifierUtilisateur(:nom, :prenom, :role, :email, :idUtilisateur)");
     }
 
     public function insert($email, $mdp, $role, $nom, $prenom){
@@ -52,9 +53,9 @@ class Utilisateur{
         return $this->selectById->fetch();
     }
 
-    public function update($id, $role, $nom, $prenom) {
+    public function update($id, $role, $nom, $prenom, $email) {
         $r = true;
-        $this->update->execute(array(":idUtilisateur"=>$id, ":role"=>$role, ":nom"=>$nom, ":prenom"=>$prenom));
+        $this->update->execute(array(":idUtilisateur"=>$id, ":role"=>$role, ":nom"=>$nom, ":prenom"=>$prenom, ":email" => $email));
         if ($this->update->errorCode()!=0) {
             print_r($this->update->errorInfo());
             $r=false;
