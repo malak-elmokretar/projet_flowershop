@@ -20,4 +20,8 @@ function maintenanceControleur($twig){
     echo $twig->render('maintenance.html.twig', array());
 }
 
+function administrationControleur($twig){
+    echo $twig->render('administration.html.twig', array());
+}
+
 ?>

@@ -8,11 +8,15 @@ function utilisateurControleur($twig, $db){
 }
 
 function utilisateurModifControleur($twig, $db) {
-     $form = array(); if(isset($_GET['id'])){
+     $form = array();
+     if(isset($_GET['id'])){
         $utilisateur = new Utilisateur($db);
         $unUtilisateur = $utilisateur->selectById($_GET['id']);
-        if ($unUtilisateur!=null){
+        if ($unUtilisateur!=null) {
             $form['utilisateur'] = $unUtilisateur;
+            $role = new Role($db);
+            $liste = $role->selectRole();
+            $form["roles"] = $liste;
         } else {
             $form['message'] = 'Utilisateur incorrect';
         }

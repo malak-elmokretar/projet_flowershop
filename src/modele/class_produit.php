@@ -8,8 +8,8 @@ class Produit{
 
     public function __construct($db){
         $this->db = $db;
-        $this->insert = $this->db->prepare("CALL ajouter_produit(:p_nom, :p_description, :p_prix, :p_libelle, :p_idSaison)");
-        $this->select = $db->prepare("CALL lister_produits()");
+        $this->insert = $this->db->prepare("CALL ajouterProduit(:p_nom, :p_description, :p_prix, :p_libelle, :p_idSaison)");
+        $this->select = $db->prepare("CALL listerProduits()");
     }
 
     public function insert($nom, $description, $prix, $idType, $idSaison){

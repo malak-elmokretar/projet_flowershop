@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+{% block title %} {{ parent() }}Administration{% endblock %}
+{% block contenu %}  {{ parent() }}
+
+<h1>Administration</h1>
+
+<ul>
+    <li>Commandes</li>
+    <li>
+        <ul>
+            <li><a href="#">Gestion des commandes</a></li>
+        </ul>
+    </li>
+    <li>Produits</li>
+    <li>
+        <ul><a href="index.php?page=produit">Liste des produits</a></ul>
+    </li>
+    <li>Utilisateurs</li>
+    <li>
+        <ul><a href="index.php?page=utilisateur">Liste des utilisateurs</a></ul>
+    </li>
+</ul>
+{% endblock %}

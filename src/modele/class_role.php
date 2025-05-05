@@ -1,12 +1,20 @@
 <?php
 
-class Role{
+class Role {
     private $db;
-    private $select;
+    private $selectRole;
 
     public function __construct($db){
         $this->db = $db;
-        $this->select = $db->prepare("SELECT id, libelle FROM ROLE;");
+        $this->selectRole = $db->prepare("CALL listerRoles()");
+    }
+
+    public function selectRole(){
+        $this->selectRole->execute();
+        if ($this->selectRole->errorCode()!=0){
+            print_r($this->selectRole->errorInfo());
+        }
+        return $this->selectRole->fetchAll();
     }
 }
 

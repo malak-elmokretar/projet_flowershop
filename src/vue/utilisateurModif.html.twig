@@ -23,8 +23,11 @@
             
                     <label for="role" class="sr-only">Choisir le rôle :</label>
                     <select class="form-control" name="role">
-                        <option value="1">Administrateur</option>
-                        <option value="2">Client</option>
+                        {% for role in form.roles %}
+                            <option value="{{ role.id }}" {% if role.id == form.utilisateur.idRole %}selected{% endif %}>
+                                {{ role.libelle }}
+                            </option>
+                        {% endfor %}
                     </select>
                     
                     <button class="btn btn-lg btn-primary btn-block" type="submit" name="btModifier">Modifier</button>

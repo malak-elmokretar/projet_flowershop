@@ -6,12 +6,13 @@ class Utilisateur{
     private $connect;
     private $select;
     private $selectById;
+    private $update;
 
     public function __construct($db){
         $this->db = $db;
         $this->insert = $this->db->prepare("CALL inscription (:email, :mdp, :nom, :prenom, :role)");
         $this->connect = $this->db->prepare("CALL connexion (:email)");
-        $this->select = $db->prepare("CALL lister_utilisateurs()");
+        $this->select = $db->prepare("CALL listerUtilisateurs()");
         $this->selectById = $db->prepare("SELECT idUtilisateur, email, nom, prenom, idRole FROM utilisateur WHERE idUtilisateur=:idUtilisateur ORDER BY idUtilisateur");
     }
 
@@ -51,6 +52,4 @@ class Utilisateur{
     }
 }
 
-// interblocage
-// algo de marge stable
 ?>
