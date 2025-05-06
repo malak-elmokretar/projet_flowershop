@@ -16,6 +16,7 @@ class Utilisateur{
         $this->select = $db->prepare("CALL listerUtilisateurs()");
         $this->selectById = $db->prepare("SELECT idUtilisateur, email, nom, prenom, idRole FROM utilisateur WHERE idUtilisateur=:idUtilisateur ORDER BY idUtilisateur");
         $this->update = $db->prepare("CALL modifierUtilisateur(:idUtilisateur, :email, :nom, :prenom, :role)");
+        $this->updateMDP = $db->prepare("CALL modifierMDP(:idUtilisateur, :mdp");
     }
 
     public function insert($email, $mdp, $role, $nom, $prenom){
@@ -58,6 +59,16 @@ class Utilisateur{
         $this->update->execute(array(":idUtilisateur"=>$id, ":role"=>$role, ":nom"=>$nom, ":prenom"=>$prenom, ":email" => $email));
         if ($this->update->errorCode()!=0) {
             print_r($this->update->errorInfo());
+            $r=false;
+        }
+        return $r;
+    }
+
+    public function updateMDP($id, $mdp) {
+        $r = true;
+        $this->updateMDP->execute(array(":idUtilisateur"=>$id, ":mdp" => $mdp));
+        if ($this->updateMDP->errorCode() != 0) {
+            print_r($this->updateMDP->errorInfo());
             $r=false;
         }
         return $r;

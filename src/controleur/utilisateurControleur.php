@@ -10,7 +10,8 @@ function utilisateurControleur($twig, $db){
 function utilisateurModifControleur($twig, $db){
     $form = array(); if(isset($_GET['id'])){
         $utilisateur = new Utilisateur($db);
-        $unUtilisateur = $utilisateur->selectById($_GET['id']); if ($unUtilisateur!=null){
+        $unUtilisateur = $utilisateur->selectById($_GET['id']);
+        if ($unUtilisateur!=null){
             $form['utilisateur'] = $unUtilisateur;
             $role = new Role($db);
             $liste = $role->selectRole();
@@ -26,6 +27,17 @@ function utilisateurModifControleur($twig, $db){
             $email = $_POST["inputEmailModification"];
             $role = $_POST['role'];
             $id = $_POST['id'];
+            $mdp = $_POST["inputPasswordModification"];
+            $mdp2 = $_POST["inputPassword2Modification"];
+            if (!empty($mdp)) {
+                if ($mdp == $mdp2) {
+                    $exec=$utilisateur->updateMDP($id, password_hash($mdp, PASSWORD_DEFAULT));
+                }
+                else {
+                    $form["valide"] = false;
+                    $form["message"] = "Les mots de passe sont différents";
+                }
+            }
             $exec=$utilisateur->update($id, $role, $nom, $prenom, $email);
             if(!$exec){
                 $form['valide'] = false; 
