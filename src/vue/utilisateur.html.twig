@@ -3,29 +3,28 @@
 {% block contenu %}  {{ parent() }}
 
 {# <form> #}
-<div class="table-responsive">
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">E-mail</th>
-                <th scope="col">Nom</th>
-                <th scope="col">Prénom</th>
-                <th scope="col">Rôle</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-            <tbody>
-                {% for utilisateur in liste %}
-                    <tr>
-                        <td>{{utilisateur.email}}</td>
-                        <td>{{utilisateur.nom}}</td>
-                        <td>{{utilisateur.prenom}}</td>
-                        <td>{{utilisateur.libelle}}</td>
-                        <td><a href="index.php?page=utilisateurModif&id={{utilisateur.idUtilisateur}}">Modifier</a></td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-    </table>
+<div class="container mt-5">
+    <div class="row">
+        {% for utilisateur in liste %}
+        <div class="col-md-4 col-lg-3 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ utilisateur.nom }} {{ utilisateur.prenom }}</h5>
+                    <p class="card-text"><strong>E-mail:</strong> {{ utilisateur.email }}</p>
+                    <p class="card-text"><strong>Rôle:</strong> {{ utilisateur.libelle }}</p>
+                    
+                    <!-- Boutons Modifier et Supprimer -->
+                    <div class="d-flex justify-content-between">
+                        <a href="index.php?page=utilisateurModif&id={{ utilisateur.idUtilisateur }}" class="btn btn-primary">Modifier</a>
+                        <a href="index.php?page=utilisateurSuppr&id={{ utilisateur.idUtilisateur }}" class="btn btn-danger btn-sm">SUPPRIMER</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </div>
+
+
 {# </form> #}
 {% endblock %}

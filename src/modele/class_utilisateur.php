@@ -16,7 +16,7 @@ class Utilisateur{
         $this->select = $db->prepare("CALL listerUtilisateurs()");
         $this->selectById = $db->prepare("SELECT idUtilisateur, email, nom, prenom, idRole FROM utilisateur WHERE idUtilisateur=:idUtilisateur ORDER BY idUtilisateur");
         $this->update = $db->prepare("CALL modifierUtilisateur(:idUtilisateur, :email, :nom, :prenom, :role)");
-        $this->updateMDP = $db->prepare("CALL modifierMDP(:idUtilisateur, :mdp");
+        $this->updateMDP = $db->prepare("CALL modifierMDP(:idUtilisateur, :mdp)");
     }
 
     public function insert($email, $mdp, $role, $nom, $prenom){

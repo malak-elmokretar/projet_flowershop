@@ -8,49 +8,54 @@ function utilisateurControleur($twig, $db){
 }
 
 function utilisateurModifControleur($twig, $db){
-    $form = array(); if(isset($_GET['id'])){
+    $form = array();
+
+    if(isset($_GET['id'])){
         $utilisateur = new Utilisateur($db);
         $unUtilisateur = $utilisateur->selectById($_GET['id']);
-        if ($unUtilisateur!=null){
+        if ($unUtilisateur != null){
             $form['utilisateur'] = $unUtilisateur;
             $role = new Role($db);
             $liste = $role->selectRole();
-            $form['roles']=$liste;
+            $form['roles'] = $liste;
         } else {
             $form['message'] = 'Utilisateur incorrect';
         }
-    } else {
-        if(isset($_POST['btModifier'])) {
-            $utilisateur = new Utilisateur($db);
-            $nom = $_POST['nom'];
-            $prenom = $_POST['prenom'];
-            $email = $_POST["inputEmailModification"];
-            $role = $_POST['role'];
-            $id = $_POST['id'];
-            $mdp = $_POST["inputPasswordModification"];
-            $mdp2 = $_POST["inputPassword2Modification"];
-            if (!empty($mdp)) {
-                if ($mdp == $mdp2) {
-                    $exec=$utilisateur->updateMDP($id, password_hash($mdp, PASSWORD_DEFAULT));
-                }
-                else {
-                    $form["valide"] = false;
-                    $form["message"] = "Les mots de passe sont différents";
-                }
-            }
-            $exec=$utilisateur->update($id, $role, $nom, $prenom, $email);
-            if(!$exec){
-                $form['valide'] = false; 
-                $form['message'] = 'Echec de la modification';
+
+    } elseif(isset($_POST['btModifier'])) {
+        $utilisateur = new Utilisateur($db);
+        $nom = $_POST['nom'];
+        $prenom = $_POST['prenom'];
+        $email = $_POST["inputEmailModification"];
+        $role = $_POST['role'];
+        $id = $_POST['id'];
+        $mdp = $_POST["inputPasswordModification"];
+        $mdp2 = $_POST["inputPassword2Modification"];
+        if (!empty($mdp) || !empty($mdp2)) {
+            if ($mdp !== $mdp2) {
+                $form["valide"] = false;
+                $form["message"] = "Les mots de passe sont différents";
+                echo $twig->render('utilisateurModif.html.twig', array('form'=>$form));
+                return;
             } else {
-                $form['valide'] = true;
-                $form['message'] = 'Modification réussie';
+                $utilisateur->updateMDP($id, password_hash($mdp, PASSWORD_DEFAULT));
             }
-        } else {
-            $form['message'] = 'Utilisateur non précisé';
         }
+        $exec = $utilisateur->update($id, $role, $nom, $prenom, $email);
+        if (!$exec) {
+            $form['valide'] = false;
+            $form['message'] = 'Échec de la modification';
+        } else {
+            $form['valide'] = true;
+            $form['message'] = 'Modification réussie';
+        }
+
+    } else {
+        $form['message'] = 'Utilisateur non précisé';
     }
+
     echo $twig->render('utilisateurModif.html.twig', array('form'=>$form));
 }
+
 
 ?>

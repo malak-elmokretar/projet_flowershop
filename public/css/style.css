@@ -161,7 +161,7 @@ footer ul li a:hover{
     border: #FAA96C;
 } 
 
-.btn:hover{
+.btn:hover, .btn:active {
     background-color: #FF9F74;
 }
 
@@ -203,11 +203,11 @@ footer ul li a:hover{
     font-size: 1.25rem;
     margin-bottom: 30px;
     font-weight: 300;
-    color: #5f6366; /* Gris doux pour le texte */
+    color: #5f6366;
 }
 
 .btn-primary {
-    background-color: #3D482A; /* Couleur d'accent douce et florale */
+    background-color: #3D482A;
     color: #EBE5D5;
     border: none;
     padding: 12px 25px;
@@ -217,17 +217,70 @@ footer ul li a:hover{
     letter-spacing: 1px;
     text-decoration: none;
 }
-.btn-primary:hover {
-    background-color: #2d4f3e; /* Teinte plus foncée au survol */
+.btn-primary:hover, .btn-primary:active {
+    background-color: #2d4f3e;
 }
 
 .maintenanceContact-link {
     color: #d86f4f;
     text-decoration: none;
 }
-.maintenanceContact-link:hover {
+.maintenanceContact-link:hover, .maintenanceContact-link:active {
     text-decoration: underline;
 }
+
+.card {
+    border: none;
+    border-radius: 8px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #555;
+}
+
+.btn {
+    border-radius: 5px;
+    font-weight: bold;
+}
+.btn-sm {
+    padding: 0.25rem 0.5rem;  /* Réduit la taille du bouton */
+    font-size: 0.875rem;  /* Taille du texte réduite */
+    display: flex;  /* Utilise Flexbox pour centrer le texte */
+    justify-content: center;  /* Centrer le texte horizontalement */
+    align-items: center;  /* Centrer le texte verticalement */
+    text-align: center;  /* S'assurer que le texte est centré */
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+/* Assure une bonne lisibilité sur tous les écrans */
+@media (max-width: 576px) {
+    .card-body {
+        padding: 1rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .card-body {
+        padding: 1.5rem;
+    }
+}
+
+
 
 /* https://dribbble.com/shots/21248179-App-UI */
 /* https://dribbble.com/shots/18894915-Flower-Store-App-Design */
