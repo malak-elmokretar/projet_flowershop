@@ -13,7 +13,7 @@ function getPage($db){
     $lesPages["maintenance"] = "maintenanceControleur";
     $lesPages["mentionsLegales"] = "mentionsLegalesControleur";
     $lesPages["produit"] = "produitControleur";
-    $lesPages["produitModif"] = "produitModifControleur";
+    $lesPages["modifierProduit"] = "modifierProduitControleur";
     $lesPages["utilisateur"] = "utilisateurControleur";
     $lesPages["utilisateurModif"] = "utilisateurModifControleur";
 

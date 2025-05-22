@@ -2,8 +2,9 @@
 
 {% block title %} {{ parent() }} Modifier un produit {% endblock %}
 
-{% block contenu %}
-
+{% block contenu %} {{ parent() }}
+{% if form.produit is defined %}
+        {% if form.produit != null %}
 <div class="form_modifierProduit">
 <form action="index.php?page=modifierProduit" method="post" enctype="application/x-www-form-urlencoded">
     <h1>Ajouter un produit</h1>
@@ -44,9 +45,17 @@
     <br>
     <label for="inputTexteAlternatifImageModifierProduit" class="sr-only">Texte alternatif :</label>
     <input type="text" id="inputTexteAlternatifImageModifierProduit" name="inputTexteAlternatifImageModifierProduit" class="form-control" required>
-
+    <input type="text" name="id" value="{{ form.produit.id }}"/>
     <br>
-    <button class="btn btn-lg btn-primary btn-block" type="submit" name="btnAjouterProduit">Ajouter le produit</button>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" name="BtnModifierProduit">Modifier le produit</button>
 </form>
 </div>
+{% else %}
+ <h2 class="alert alert-danger" role="alert">{{ form.message }}</h2>
+ <a href="index.php?page=produits">Retourner sur la liste des produits</a>
+ {% endif %}
+{% else %} 
+ <h2 class="alert alert-danger" role="alert">{{ form.message }}</h2>
+ <a href="index.php?page=produits">Retourner sur la liste des produits</a>
+{% endif %}
 {% endblock %}

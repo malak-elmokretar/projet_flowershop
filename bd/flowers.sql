@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 22 mai 2025 à 09:35
+-- Généré le : jeu. 22 mai 2025 à 12:42
 -- Version du serveur : 8.3.0
 -- Version de PHP : 8.3.6
 
@@ -41,6 +41,15 @@ END$$
 DROP PROCEDURE IF EXISTS `inscription`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `inscription` (IN `p_email` VARCHAR(100), `p_mdp` VARCHAR(256), `p_nom` VARCHAR(100), `p_prenom` VARCHAR(100), `p_idRole` INT)   BEGIN
 	INSERT INTO utilisateur(email, mdp, nom, prenom, idRole) VALUES (p_email, p_mdp, p_nom, p_prenom, p_idRole);
+END$$
+
+DROP PROCEDURE IF EXISTS `listerProduitsParId`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listerProduitsParId` (IN `p_idProduit` INT)   BEGIN
+	SELECT produit.id, nom, description, prix, type.libelle, taille, nomSaison, quantite, photo, descriptionPhotoAlt
+    FROM produit
+    LEFT JOIN type ON produit.idType = type.id
+    LEFT JOIN saison ON produit.idSaison = saison.id
+    WHERE produit.id = p_idProduit;
 END$$
 
 DROP PROCEDURE IF EXISTS `listerUtilisateursParId`$$
@@ -148,11 +157,13 @@ CREATE TABLE IF NOT EXISTS `listerproduits` (
 ,`descriptionPhotoAlt` text
 ,`id` int
 ,`libelle` varchar(100)
+,`libelleOccasion` varchar(100)
 ,`nom` varchar(100)
 ,`nomSaison` varchar(100)
 ,`photo` text
 ,`prix` float
 ,`quantite` int
+,`taille` enum('unite','petit','moyen','grand')
 );
 
 -- --------------------------------------------------------
@@ -182,6 +193,40 @@ CREATE TABLE IF NOT EXISTS `listerutilisateurs` (
 ,`nom` varchar(100)
 ,`prenom` varchar(100)
 );
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `occasion`
+--
+
+DROP TABLE IF EXISTS `occasion`;
+CREATE TABLE IF NOT EXISTS `occasion` (
+  `idOccasion` int NOT NULL AUTO_INCREMENT,
+  `libelleOccasion` varchar(100) DEFAULT NULL,
+  `idSaison` int DEFAULT NULL,
+  `dateDebut` date DEFAULT NULL,
+  `dateFin` date DEFAULT NULL,
+  PRIMARY KEY (`idOccasion`),
+  KEY `idSaison` (`idSaison`)
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `occasion`
+--
+
+INSERT INTO `occasion` (`idOccasion`, `libelleOccasion`, `idSaison`, `dateDebut`, `dateFin`) VALUES
+(1, 'Saint Valentin', 4, '2025-02-14', '2025-02-14'),
+(2, 'Nouvel an', 4, '2025-12-31', '2026-01-01'),
+(3, 'Toussaint', 3, '2025-11-01', '2025-11-01'),
+(4, 'Pâques', 1, '2025-04-20', '2025-04-20'),
+(5, 'Fête des pères', 1, '2025-06-15', '2025-06-15'),
+(6, 'Félicitations', 0, '2025-01-01', '2025-12-31'),
+(7, 'Naissance', 0, '2025-01-01', '2025-12-31'),
+(8, 'Mariage', 0, '2025-01-01', '2025-12-31'),
+(9, 'Deuil', 0, '2025-01-01', '2025-12-31'),
+(10, 'Noël', 4, '2025-12-24', '2025-12-25'),
+(11, 'Oral épreuve E6', 2, '2025-06-12', '2025-06-13');
 
 -- --------------------------------------------------------
 
@@ -251,7 +296,7 @@ CREATE TABLE IF NOT EXISTS `saison` (
   `date_debut` date DEFAULT NULL,
   `date_fin` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `saison`
@@ -262,17 +307,9 @@ INSERT INTO `saison` (`id`, `nomSaison`, `date_debut`, `date_fin`) VALUES
 (2, 'Été', '2025-06-21', '2025-09-21'),
 (3, 'Automne', '2025-09-22', '2025-12-20'),
 (4, 'Hiver', '2025-12-21', '2026-03-19'),
-(5, 'Saint Valentin', '2025-02-14', '2025-02-14'),
-(6, 'Nouvel an', '2025-12-31', '2026-01-01'),
-(7, 'Toussaint', '2025-11-01', '2025-11-01'),
-(8, 'Pâques', '2025-04-20', '2025-04-20'),
-(9, 'Fête des mères', '2025-05-05', '2025-05-05'),
-(10, 'Fête des pères', '2025-06-15', '2025-06-15'),
-(12, 'Félicitations', '2025-01-01', '2025-12-31'),
-(13, 'Naissance', '2025-01-01', '2025-12-31'),
-(14, 'Mariage', '2025-01-01', '2025-12-31'),
-(15, 'Deuil', '2025-01-01', '2025-12-31'),
-(16, 'Noël', '2025-12-24', '2025-12-25');
+(0, 'Année entière', '2025-01-01', '2026-12-31'),
+(5, 'Printemps-Été', '2025-03-20', '2025-09-21'),
+(6, 'Automne-Hiver', '2025-09-22', '2026-03-19');
 
 -- --------------------------------------------------------
 
@@ -329,25 +366,6 @@ INSERT INTO `utilisateur` (`idUtilisateur`, `email`, `mdp`, `nom`, `prenom`, `id
 --
 -- Déclencheurs `utilisateur`
 --
-DROP TRIGGER IF EXISTS `historiqueMDP`;
-DELIMITER $$
-CREATE TRIGGER `historiqueMDP` BEFORE UPDATE ON `utilisateur` FOR EACH ROW BEGIN
-	IF NEW.mdp IS NOT null THEN
-    	IF OLD.mdp != NEW.mdp THEN
-            IF (SELECT COUNT(*) FROM anciensmdp WHERE idUtilisateur = NEW.idUtilisateur AND mdp = NEW.mdp) = 0 THEN
-            	INSERT INTO `anciensmdp`(`idUtilisateur`, `mdp`, `dateModification`) VALUES (NEW.idUtilisateur,OLD.mdp, CURRENT_TIMESTAMP);
-            ELSE
-            	SIGNAL SQLSTATE '45000'
-            	SET MESSAGE_TEXT = 'Votre mot de passe doit être différent de votre précédent mot de passe.';
-            END IF;
-		ELSE
-        	SIGNAL SQLSTATE '45001'
-            SET MESSAGE_TEXT = 'Votre mot de passe ne doit pas être un mot de passe que vous avez déjà utilisé.';
-		END IF;
-    END IF;
-END
-$$
-DELIMITER ;
 DROP TRIGGER IF EXISTS `suppression_utilisateur`;
 DELIMITER $$
 CREATE TRIGGER `suppression_utilisateur` AFTER DELETE ON `utilisateur` FOR EACH ROW BEGIN
@@ -395,7 +413,7 @@ INSERT INTO `utilisateur_supprime` (`id`, `idUtilisateurSupprime`, `email`, `mdp
 DROP TABLE IF EXISTS `listerproduits`;
 
 DROP VIEW IF EXISTS `listerproduits`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`malak`@`%` SQL SECURITY DEFINER VIEW `listerproduits`  AS SELECT `produit`.`id` AS `id`, `produit`.`nom` AS `nom`, `produit`.`description` AS `description`, `produit`.`prix` AS `prix`, `type`.`libelle` AS `libelle`, `saison`.`nomSaison` AS `nomSaison`, `produit`.`quantite` AS `quantite`, `produit`.`photo` AS `photo`, `produit`.`descriptionPhotoAlt` AS `descriptionPhotoAlt` FROM ((`produit` left join `saison` on((`produit`.`idSaison` = `saison`.`id`))) left join `type` on((`produit`.`idType` = `type`.`id`))) ORDER BY `produit`.`nom` ASC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `listerproduits`  AS SELECT `produit`.`id` AS `id`, `produit`.`nom` AS `nom`, `produit`.`description` AS `description`, `produit`.`prix` AS `prix`, `type`.`libelle` AS `libelle`, `type`.`taille` AS `taille`, `saison`.`nomSaison` AS `nomSaison`, `occasion`.`libelleOccasion` AS `libelleOccasion`, `produit`.`quantite` AS `quantite`, `produit`.`photo` AS `photo`, `produit`.`descriptionPhotoAlt` AS `descriptionPhotoAlt` FROM (((`produit` left join `type` on((`produit`.`idType` = `type`.`id`))) left join `saison` on((`produit`.`idSaison` = `saison`.`id`))) left join `occasion` on((`saison`.`id` = `occasion`.`idOccasion`))) ORDER BY `produit`.`nom` ASC ;
 
 -- --------------------------------------------------------
 

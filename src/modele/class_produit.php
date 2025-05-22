@@ -12,6 +12,7 @@ class Produit{
         $this->insert = $this->db->prepare("CALL ajouterProduit(:p_nom, :p_description, :p_prix, :p_idType, :p_idSaison, :p_quantite, :p_descriptionPhotoAlt)");
         $this->select = $db->prepare("SELECT * FROM listerProduits");
         $this->update = $this->db->prepare("CALL modifierProduit(:p_nom, :p_description, :p_prix, :p_idType, :p_idSaison, :p_quantite, :p_descriptionPhotoAlt)");
+        $this->selectById = $db->prepare("CALL listerProduitsParId()");
     }
 
     public function insert($nom, $description, $prix, $idType, $idSaison, $quantite, $p_descriptionPhotoAlt){
