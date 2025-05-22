@@ -17,7 +17,11 @@
                             <span class="price text-success">{{produit.prix | number_format(2, ',', ' ')}} €</span>
                         </div>
                         <a href="#" class="btn btn-primary mt-2 w-100">Ajouter au panier</a>
+                        <div class="d-flex justify-content-between">
+                        <a href="index.php?page=modifierProduit&id={{ produit.id }}">Modifier</a>
+                        <a href="index.php?page=utilisateurSuppr&id={{ produit.id }}">SUPPRIMER</a>
                     </div>
+                </div>
                 </div>
             </div>
         {% endfor %}

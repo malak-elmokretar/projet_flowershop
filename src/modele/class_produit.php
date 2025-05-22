@@ -10,7 +10,7 @@ class Produit{
     public function __construct($db){
         $this->db = $db;
         $this->insert = $this->db->prepare("CALL ajouterProduit(:p_nom, :p_description, :p_prix, :p_idType, :p_idSaison, :p_quantite, :p_descriptionPhotoAlt)");
-        $this->select = $db->prepare("CALL listerProduits()");
+        $this->select = $db->prepare("SELECT * FROM listerProduits");
         $this->update = $this->db->prepare("CALL modifierProduit(:p_nom, :p_description, :p_prix, :p_idType, :p_idSaison, :p_quantite, :p_descriptionPhotoAlt)");
     }
 

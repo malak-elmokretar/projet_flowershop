@@ -6,7 +6,7 @@ class Role {
 
     public function __construct($db){
         $this->db = $db;
-        $this->selectRole = $db->prepare("CALL listerRoles()");
+        $this->selectRole = $db->prepare("SELECT * FROM listerRoles");
     }
 
     public function selectRole(){

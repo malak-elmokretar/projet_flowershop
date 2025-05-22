@@ -13,7 +13,7 @@ class Utilisateur{
         $this->db = $db;
         $this->insert = $this->db->prepare("CALL inscription (:email, :mdp, :nom, :prenom, :role)");
         $this->connect = $this->db->prepare("CALL connexion (:email)");
-        $this->select = $db->prepare("CALL listerUtilisateurs()");
+        $this->select = $db->prepare("SELECT * FROM listerUtilisateurs");
         $this->selectById = $db->prepare("SELECT idUtilisateur, email, nom, prenom, idRole FROM utilisateur WHERE idUtilisateur=:idUtilisateur ORDER BY idUtilisateur");
         $this->update = $db->prepare("CALL modifierUtilisateur(:idUtilisateur, :email, :nom, :prenom, :role)");
         $this->updateMDP = $db->prepare("CALL modifierMDP(:idUtilisateur, :mdp)");
