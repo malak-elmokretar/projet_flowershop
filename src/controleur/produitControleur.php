@@ -32,22 +32,28 @@ function modifierProduitControleur($twig, $db) {
     
     if (isset($_GET["id"])) {
         $produit = new Produit($db);
-        $unProduit = $produit->select($_GET["id"]);
+        $unProduit = $produit->selectByID($_GET["id"]);
         if ($unProduit != null){
             $form["produit"] = $unProduit;
+            $saison = new Saison($db);
+            $listeSaison = $saison->selectSaison();
+            $form["saison"] = $listeSaison;
+            $type = new Type($db);
+            $listType = $type->selectType();
+            $form["type"] = $listeType;
         } else {
             $form["message"] = "Produit incorrect";
         }
     } elseif (isset($_POST["BtnModifierProduit"])) {
-        $inputNom = $_POST["inputNomAjoutProduit"];
-        $inputDescription = $_POST["inputDescriptionAjoutProduit"];
-        $inputPrix = $_POST["inputPrixAjoutProduit"];
+        $inputNom = $_POST["inputNomModifierProduit"];
+        $inputDescription = $_POST["inputDescriptionModifierProduit"];
+        $inputPrix = $_POST["inputPrixModifierProduit"];
         $inputType = $_POST["type"];
         $inputSaison = $_POST["saison"];
-        $inputQuantite = $_POST["inputQuantiteAjoutProduit"];
-        $inputTexteAlternatif = $_POST["inputTexteAlternatifImageAjoutProduit"];
+        $inputQuantite = $_POST["inputQuantiteModifierProduit"];
+        $inputTexteAlternatif = $_POST["inputTexteAlternatifImageModifierProduit"];
         $produit = new Produit($db);
-        $exec = $produit->update($id, $inputDescription, $inputPrix, $inputType, $inputSaison, $inputQuantite, $inputTexteAlternatif);
+        $exec = $produit->update($idProduit, $inputDescription, $inputPrix, $inputType, $inputSaison, $inputQuantite, $inputTexteAlternatif);
         if (!$exec) {
             $form["valide"] = false;
             $form["message"] = "Échec de la modification";

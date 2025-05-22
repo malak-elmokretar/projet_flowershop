@@ -53,7 +53,6 @@ function utilisateurModifControleur($twig, $db){
     } else {
         $form["message"] = "Utilisateur non précisé";
     }
-
     echo $twig->render("utilisateurModif.html.twig", array("form"=>$form));
 }
 
