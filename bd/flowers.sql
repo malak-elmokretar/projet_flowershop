@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 05 mai 2025 à 14:21
+-- Généré le : jeu. 22 mai 2025 à 06:12
 -- Version du serveur : 8.3.0
 -- Version de PHP : 8.2.18
 
@@ -26,9 +26,9 @@ DELIMITER $$
 -- Procédures
 --
 DROP PROCEDURE IF EXISTS `ajouterProduit`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ajouterProduit` (IN `p_nom` VARCHAR(100), IN `p_description` TEXT, IN `p_prix` FLOAT, IN `p_idType` INT, IN `p_idSaison` INT)   BEGIN
-	INSERT INTO produit (nom, description, prix, idType, idSaison)
-    	VALUES (p_nom, p_description, p_prix, p_idType, p_idSaison);
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ajouterProduit` (IN `p_nom` VARCHAR(100), IN `p_description` TEXT, IN `p_prix` FLOAT, IN `p_idType` INT, IN `p_idSaison` INT, IN `p_quantite` INT, IN `p_descriptionPhotoAlt` TEXT)   BEGIN
+	INSERT INTO produit (nom, description, prix, idType, idSaison, quantite, descriptionPhotoAlt)
+    	VALUES (p_nom, p_description, p_prix, p_idType, p_idSaison, p_quantite, p_descriptionPhotoAlt);
 END$$
 
 DROP PROCEDURE IF EXISTS `connexion`$$
@@ -45,7 +45,7 @@ END$$
 
 DROP PROCEDURE IF EXISTS `listerProduits`$$
 CREATE DEFINER=`malak`@`%` PROCEDURE `listerProduits` ()   BEGIN
-	SELECT produit.id, produit.nom, description, prix, type.libelle, saison.nomSaison
+	SELECT produit.id, produit.nom, description, prix, type.libelle, saison.nomSaison, quantite, photo, descriptionPhotoAlt
     FROM produit
     LEFT JOIN saison ON produit.idSaison = saison.id
     LEFT JOIN type ON produit.idType = type.id
@@ -73,6 +73,13 @@ CREATE DEFINER=`malak`@`%` PROCEDURE `listerUtilisateursParId` (IN `p_idUtilisat
     ORDER BY idUtilisateur;
 END$$
 
+DROP PROCEDURE IF EXISTS `modifierMDP`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `modifierMDP` (IN `p_idUtilisateur` INT, `p_mdp` VARCHAR(256))   BEGIN
+	UPDATE utilisateur
+    SET mdp = p_mdp
+    WHERE idUtilisateur = p_idUtilisateur;
+END$$
+
 DROP PROCEDURE IF EXISTS `modifierUtilisateur`$$
 CREATE DEFINER=`malak`@`%` PROCEDURE `modifierUtilisateur` (IN `p_idUtilisateur` INT, `p_email` VARCHAR(100), `p_nom` VARCHAR(100), `p_prenom` VARCHAR(100), `p_idRole` INT)   BEGIN
 	UPDATE utilisateur
@@ -80,6 +87,38 @@ CREATE DEFINER=`malak`@`%` PROCEDURE `modifierUtilisateur` (IN `p_idUtilisateur`
 END$$
 
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `anciensmdp`
+--
+
+DROP TABLE IF EXISTS `anciensmdp`;
+CREATE TABLE IF NOT EXISTS `anciensmdp` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `idUtilisateur` int DEFAULT NULL,
+  `mdp` varchar(255) DEFAULT NULL,
+  `dateModification` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idUtilisateur` (`idUtilisateur`)
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `anciensmdp`
+--
+
+INSERT INTO `anciensmdp` (`id`, `idUtilisateur`, `mdp`, `dateModification`) VALUES
+(1, 16, 'nana', '2025-05-10 00:00:00'),
+(2, 16, '58', '2025-05-10 01:01:11'),
+(3, 16, '58', '2025-05-10 01:01:11'),
+(4, 14, '58', '2025-05-10 01:01:11'),
+(5, 8, '58', '2025-05-10 01:01:11'),
+(6, 16, '248', '2025-05-10 01:01:11'),
+(7, 15, '58', '2025-05-10 01:01:11'),
+(8, 15, 'nana2', '2025-05-10 01:57:23'),
+(9, 15, 'lslsll', '2025-05-10 01:59:45'),
+(10, 15, '', '2025-05-10 01:59:54');
 
 -- --------------------------------------------------------
 
@@ -114,20 +153,24 @@ CREATE TABLE IF NOT EXISTS `produit` (
   `prix` float DEFAULT NULL,
   `idType` int DEFAULT NULL,
   `idSaison` tinyint DEFAULT NULL,
+  `quantite` int NOT NULL,
+  `photo` text NOT NULL,
+  `descriptionPhotoAlt` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idType` (`idType`),
   KEY `idSaison` (`idSaison`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `produit`
 --
 
-INSERT INTO `produit` (`id`, `nom`, `description`, `prix`, `idType`, `idSaison`) VALUES
-(1, 'Rose', 'Lorem', 5.45, 1, 1),
-(2, 'Tulipe', 'ipsum', 8, 2, 2),
-(3, 'Marguerite', 'lorem ipsum', 7.99, 1, 4),
-(4, 'Fleur rouge', 'lorem ispum ahbfhe', 3.5, 2, 1);
+INSERT INTO `produit` (`id`, `nom`, `description`, `prix`, `idType`, `idSaison`, `quantite`, `photo`, `descriptionPhotoAlt`) VALUES
+(1, 'Rose', 'Lorem', 5.45, 1, 1, 0, './images/background1.png', ''),
+(2, 'Tulipe', 'ipsum', 8, 2, 2, 0, './images/background2.png', ''),
+(3, 'Marguerite', 'lorem ipsum', 7.99, 1, 4, 0, './images/butterfly.png', ''),
+(4, 'Fleur rouge', 'lorem ispum ahbfhe', 3.5, 2, 1, 0, './images/background4.png', ''),
+(5, 'Assortiment de roses', 'Un joli assortiment de roses de toutes les couleurs', 34, 3, 1, 12, '', '89');
 
 -- --------------------------------------------------------
 
@@ -234,13 +277,20 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
 
 INSERT INTO `utilisateur` (`idUtilisateur`, `email`, `mdp`, `nom`, `prenom`, `idRole`) VALUES
 (14, 'elmokretarmalak25@gmail.com', '$2y$10$M/Y8AWgYKKj8ycqPOfU9du85w4nP8fS6cOFc4Tn0mhBbcwMG4LhGS', 'EL MOKRETAR', 'Malak', 1),
-(15, 'malak@nabi.com', '$2y$10$ytR9QIvs2RKhDh2.DyUDXuIj.0ThPU2JmIdLrHLqTyFVSFEv4Dgn2', 'EL MOKRETAR', 'Malak', 1),
-(16, 'example@example.fr', '$2y$10$7uxD/FZuIypYauI40KK.reWRbPwG.lRwnYgOo38oOT.Yg.AYrCI3W', 'Doe', 'Jane', 2),
+(15, 'malak@nabi.com', 'chocolat', 'EL MOKRETAR', 'Malak', 1),
+(16, 'example@example.fr', '$2y$10$yGimzSjo6SzI64Jq0lJuCuOf2Ryv/AM7BA4ISE0xja5widWeoNzRq', 'Doe', 'Jane', 2),
 (8, 'hammedikelian@gmail.com', '$2y$10$fxlqi8eIBW1UVBZ6YnjKmO.FTVpcFVon3KHR0JOBMYXmjY00SMnRS', 'kelian', 'kelian', 1);
 
 --
 -- Déclencheurs `utilisateur`
 --
+DROP TRIGGER IF EXISTS `repertorierAnciensMDP`;
+DELIMITER $$
+CREATE TRIGGER `repertorierAnciensMDP` BEFORE UPDATE ON `utilisateur` FOR EACH ROW BEGIN
+	INSERT INTO `anciensmdp`(`idUtilisateur`, `mdp`, `dateModification`) VALUES (NEW.idUtilisateur,OLD.mdp, CURRENT_TIMESTAMP);
+END
+$$
+DELIMITER ;
 DROP TRIGGER IF EXISTS `suppression_utilisateur`;
 DELIMITER $$
 CREATE TRIGGER `suppression_utilisateur` AFTER DELETE ON `utilisateur` FOR EACH ROW BEGIN
@@ -248,6 +298,19 @@ CREATE TRIGGER `suppression_utilisateur` AFTER DELETE ON `utilisateur` FOR EACH 
         DELETE FROM utilisateur
         WHERE utilisateur.idUtilisateur = OLD.idUtilisateur;
     END
+$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `verifierMDPDejaUtilise`;
+DELIMITER $$
+CREATE TRIGGER `verifierMDPDejaUtilise` BEFORE UPDATE ON `utilisateur` FOR EACH ROW IF EXISTS (
+        SELECT 1
+        FROM anciensmdp
+        WHERE idUtilisateur = NEW.idUtilisateur
+          AND mdp = NEW.mdp
+    ) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Votre mot de passe ne doit pas être un mdp que vous avez déjà utilisé.';
+    END IF
 $$
 DELIMITER ;
 
