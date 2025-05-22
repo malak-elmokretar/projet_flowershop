@@ -280,6 +280,39 @@ footer ul li a:hover{
     }
 }
 
+/* Conteneur du Masonry Grid */
+.masonry-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Crée des colonnes de largeur variable */
+    grid-gap: 30px; /* Espacement entre les cartes */
+}
+
+/* Les éléments à l'intérieur du Masonry Grid */
+.masonry-item {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Hauteur variable pour les cartes */
+.card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Pour les images */
+.card-img-top {
+    object-fit: cover;
+    height: 200px; /* Hauteur fixe pour les images */
+}
+
+/* Optionnel : effet de survol de la carte */
+.card:hover {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease;
+}
+
+
 
 
 /* https://dribbble.com/shots/21248179-App-UI */

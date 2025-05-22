@@ -3,32 +3,27 @@
 {% block contenu %}  {{ parent() }}
 
 {# <form> #}
-<div class="table-responsive">
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Nom</th>
-                <th scope="col">Description</th>
-                <th scope="col">Prix</th>
-                <th scope="col">Type</th>
-                <th scope="col">Saison</th>
-                <th scope="col">Image</th>
-
-            </tr>
-        </thead>
-            <tbody>
-                {% for produit in liste %}
-                    <tr>
-                        <td>{{produit.nom}}</td>
-                        <td>{{produit.description}}</td>
-                        <td>{{produit.prix}}</td>
-                        <td>{{produit.libelle}}</td>
-                        <td>{{produit.nomSaison}}</td>
-                        <td>{{produit.image}}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-    </table>
+<div class="container py-5">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for produit in liste %}
+            <div class="col">
+                <div class="card shadow-sm border-light rounded h-100">
+                    <img src="{{produit.photo}}" class="card-img-top" alt="{{produit.descriptionPhotoAlt}}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{produit.nom}}</h5>
+                        <p class="card-text">{{produit.descriptionProduit | slice(0, 100) ~ '...'}}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-muted">{{produit.nomSaison}}</span>
+                            <span class="price text-success">{{produit.prix | number_format(2, ',', ' ')}} €</span>
+                        </div>
+                        <a href="#" class="btn btn-primary mt-2 w-100">Ajouter au panier</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 </div>
+
+
 {# </form> #}
 {% endblock %}

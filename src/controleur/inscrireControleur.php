@@ -24,35 +24,35 @@ function verifierMdp($mdp) {
 
 function inscrireControleur($twig, $db){
     $formInscription = array();
-    if (isset($_POST['btInscrire'])){
-        $inputEmail = $_POST['inputEmailInscription'];
-        $inputPassword = $_POST['inputPasswordInscription'];
-        $inputPassword2 =$_POST['inputPassword2Inscription'];
-        $nom = $_POST['nom'];
-        $prenom = $_POST['prenom'];
-        $role = $_POST['role'];
-        $formInscription['valide']= true;
+    if (isset($_POST["btInscrire"])){
+        $inputEmail = $_POST["inputEmailInscription"];
+        $inputPassword = $_POST["inputPasswordInscription"];
+        $inputPassword2 =$_POST["inputPassword2Inscription"];
+        $nom = $_POST["nom"];
+        $prenom = $_POST["prenom"];
+        $role = $_POST["role"];
+        $formInscription["valide"]= true;
 
         if ($inputPassword != $inputPassword2){
-            $formInscription['valide'] = false;
-            $formInscription['message'] = 'Les mots de passe sont différents';
+            $formInscription["valide"] = false;
+            $formInscription["message"] = "Les mots de passe sont différents";
         } elseif (!verifierMdp($inputPassword)) {
-            $formInscription['valide'] = false;
-            $formInscription['message'] = 'Le mot de passe n\'est pas assez complexe. Il doit contenir au moins 12 caractères, 1 majuscule, 3 minuscules, 4 chiffres et 1 caractère spécial.';
+            $formInscription["valide"] = false;
+            $formInscription["message"] = "Le mot de passe n'est pas assez complexe. Il doit contenir au moins 12 caractères, 1 majuscule, 3 minuscules, 4 chiffres et 1 caractère spécial.";
         } else {
             $utilisateur = new Utilisateur($db);
             $exec = $utilisateur->insert($inputEmail, password_hash($inputPassword, PASSWORD_DEFAULT), $role, $nom, $prenom);
             if (!$exec){
-                $formInscription['valide'] = false;
-                $formInscription['message'] = "Problème d'insertion dans la table utilisateur";
+                $formInscription["valide"] = false;
+                $formInscription["message"] = "Problème d'insertion dans la table utilisateur";
             }
         }
 
-        $formInscription['emailInscription'] = $inputEmail;
-        $formInscription['roleInscription'] = $role;
+        $formInscription["emailInscription"] = $inputEmail;
+        $formInscription["roleInscription"] = $role;
     }
 
-    echo $twig->render('inscrire.html.twig', array('formInscription'=>$formInscription));
+    echo $twig->render("inscrire.html.twig", array("formInscription"=>$formInscription));
 }
 
 ?>
