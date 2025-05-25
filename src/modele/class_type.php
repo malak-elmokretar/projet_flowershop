@@ -6,7 +6,7 @@ class Type {
 
     public function __construct($db){
         $this->db = $db;
-        $this->selectType = $db->prepare("SELECT * FROM type");
+        $this->selectType = $db->prepare("SELECT * FROM listerType");
     }
 
     public function selectType(){

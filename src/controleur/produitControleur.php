@@ -39,7 +39,7 @@ function modifierProduitControleur($twig, $db) {
             $listeSaison = $saison->selectSaison();
             $form["saison"] = $listeSaison;
             $type = new Type($db);
-            $listType = $type->selectType();
+            $listeType = $type->selectType();
             $form["type"] = $listeType;
         } else {
             $form["message"] = "Produit incorrect";

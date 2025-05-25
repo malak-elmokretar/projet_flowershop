@@ -42,5 +42,15 @@ class Produit{
         }
         return $this->selectById->fetch();
     }
+
+    public function update($nom, $description, $prix, $idType, $idSaison, $quantite, $p_descriptionPhotoAlt){
+        $r = true;
+        $this->update->execute(array(":p_nom"=>$nom, ":p_description"=>$description, ":p_prix"=>$prix, ":p_idType"=>$idType, ":p_idSaison" => $idSaison, ":p_quantite" => $quantite, ":p_descriptionPhotoAlt" => $p_descriptionPhotoAlt));
+        if ($this->update->errorCode()!=0) {
+            print_r($this->update->errorInfo());
+            $r=false;
+        }
+        return $r;
+    }
 }
 ?>
