@@ -1,11 +1,11 @@
-{% extends "base.html.twig" %}
+{% extends "base.twig" %}
 
 {% block title %} {{ parent() }} Ajouter un produit {% endblock %}
 
-{% block contenu %}
+{% block contenu %} {{ parent() }}
 
 <div class="form_ajoutProduit">
-<form action="index.php?page=ajoutProduit" method="post" enctype="application/x-www-form-urlencoded">
+<form class="form-signin" action="index.php?page=ajoutProduit" method="post" enctype="multipart/form-data">
     <h1>Ajouter un produit</h1>
     
 
@@ -39,7 +39,7 @@
 
     <label for="inputImageAjoutProduit" class="sr-only">Image :</label>
     <br>
-    <input type="file" name="inputImageAjoutProduit">
+    <input type="file" name="inputImageAjoutProduit" id="inputImageAjoutProduit">
     <br>
     <br>
     <label for="inputTexteAlternatifImageAjoutProduit" class="sr-only">Texte alternatif :</label>

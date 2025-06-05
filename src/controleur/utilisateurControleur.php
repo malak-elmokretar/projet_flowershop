@@ -3,8 +3,38 @@
 function utilisateurControleur($twig, $db){
     $form = array();
     $utilisateur = new Utilisateur($db);
+
+    if (isset($_POST["btnSupprimer"])) {
+        $cocher = $_POST["cocher"];
+        $form["valide"] = true;
+        $etat = true;
+        foreach ($cocher as $id) {
+            $exec = $utilisateur->delete($id);
+            if (!$exec) {
+                $etat = false;
+            }
+        }
+        header("Location: index.php?page=utilisateur&etat=".$etat);
+        exit;
+    }
+    
+    if(isset($_GET["id"])){
+        $exec = $utilisateur->delete($_GET["id"]);
+        if (!$exec){
+            $etat = false;
+        } else {
+            $etat = true;
+        }
+        header("Location: index.php?page=utilisateur&etat=".$etat);
+        exit;
+    }
+    
+    if (isset($_GET["etat"])) {
+        $form["etat"] = $_GET["etat"];
+    }
+
     $liste = $utilisateur->select();
-    echo $twig->render("utilisateur.html.twig", array("form"=>$form,"liste"=>$liste));
+    echo $twig->render("utilisateur.twig", array("form"=>$form,"liste"=>$liste));
 }
 
 function utilisateurModifControleur($twig, $db){
@@ -35,7 +65,7 @@ function utilisateurModifControleur($twig, $db){
             if ($mdp !== $mdp2) {
                 $form["valide"] = false;
                 $form["message"] = "Les mots de passe sont différents";
-                echo $twig->render("utilisateurModif.html.twig", array("form"=>$form));
+                echo $twig->render("utilisateurModif.twig", array("form"=>$form));
                 return;
             } else {
                 $utilisateur->updateMDP($id, password_hash($mdp, PASSWORD_DEFAULT));
@@ -53,7 +83,7 @@ function utilisateurModifControleur($twig, $db){
     } else {
         $form["message"] = "Utilisateur non précisé";
     }
-    echo $twig->render("utilisateurModif.html.twig", array("form"=>$form));
+    echo $twig->render("utilisateurModif.twig", array("form"=>$form));
 }
 
 

@@ -1,0 +1,58 @@
+{% extends "base.twig" %}
+{% block title %} {{ parent() }}Administration{% endblock %}
+{% block contenu %}  {{ parent() }}
+
+<div class="container my-5">
+    <h1 class="mb-4">Panneau d'administration</h1>
+
+    <!-- Bannière promotionnelle App Mobile -->
+    <div class="alert alert-info d-flex align-items-center justify-content-between" role="alert">
+        <div>
+            📱 Découvrez notre application mobile pour gérer votre boutique où que vous soyez !
+        </div>
+        <a href="#" class="btn btn-primary btn-sm">Télécharger l'app</a>
+    </div>
+
+    <!-- Menu d'administration en cartes -->
+    <div class="row g-4">
+
+        <!-- Commandes -->
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">📦 Commandes</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-decoration-none">Gestion des commandes</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Produits -->
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">🛒 Produits</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.php?page=ajoutProduit" class="text-decoration-none">Ajouter un produit</a></li>
+                        <li><a href="index.php?page=produit" class="text-decoration-none">Liste des produits</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Utilisateurs -->
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">👥 Utilisateurs</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.php?page=utilisateur" class="text-decoration-none">Liste des utilisateurs</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

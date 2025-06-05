@@ -1,8 +1,16 @@
-{% extends "base.html.twig" %}
-{% block title %} {{ parent() }}Utilisateurs{% endblock %}
+{% extends "base.twig" %}
+{% block title %} {{ parent() }}Liste des utilisateurs{% endblock %}
 {% block contenu %}  {{ parent() }}
 
-{# <form> #}
+{% if form.etat is defined %}  
+    {% if form.etat == true %} 
+        <h1 class="h3 mb-3 font-weight-normal">Suppression réussie</h1> 
+    {% else %} 
+        <h1 class="alert alert-danger" role="alert">Problème d'insertion</h1>  
+    {% endif %}
+{% endif %}
+
+<form class="form-signin" action="index.php?page=utilisateur" method="post" enctype="application/x-www-form-urlencoded">
 <div class="container mt-5">
     <div class="row">
         {% for utilisateur in liste %}
@@ -14,15 +22,16 @@
                     <p class="card-text"><strong>Rôle:</strong> {{ utilisateur.libelle }}</p>
                     <div class="d-flex justify-content-between">
                         <a href="index.php?page=utilisateurModif&id={{ utilisateur.idUtilisateur }}" class="btn btn-primary">Modifier</a>
-                        <a href="index.php?page=utilisateurSuppr&id={{ utilisateur.idUtilisateur }}" class="btn btn-danger btn-sm">SUPPRIMER</a>
+                        <a href="index.php?page=utilisateur&id={{ utilisateur.idUtilisateur }}" class="btn btn-danger btn-sm">SUPPRIMER</a>
                     </div>
+                    <span><input type="checkbox" name="cocher[]" id="cocher[]" value="{{utilisateur.idUtilisateur}}"/></span>
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
 </div>
+<button class="btn btn-lg btn-primary btn-block" type="submit" name="btnSupprimer">SUPPRIMER</button>
+</form>
 
-
-{# </form> #}
 {% endblock %}

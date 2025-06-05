@@ -52,7 +52,7 @@ function inscrireControleur($twig, $db){
         $formInscription["roleInscription"] = $role;
     }
 
-    echo $twig->render("inscrire.html.twig", array("formInscription"=>$formInscription));
+    echo $twig->render("inscrire.twig", array("formInscription"=>$formInscription));
 }
 
 ?>
