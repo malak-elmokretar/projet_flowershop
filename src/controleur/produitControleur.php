@@ -7,11 +7,11 @@ function produitControleur($twig, $db){
     if (isset($_POST["btnSupprimer"])) {
         $cocher = $_POST["cocher"];
         $form["valide"] = true;
-        $etat = true;
         foreach ($cocher as $id) {
             $exec = $produit->delete($id);
             if (!$exec) {
-                $etat = false;
+                $form['valide'] = false;
+                $form['message'] = 'Problème de suppression dans la table produit';
             }
         }
         header("Location: index.php?page=produit&etat=".$etat);
@@ -21,14 +21,31 @@ function produitControleur($twig, $db){
     if (isset($_GET["id"])) {
         $exec = $produit->delete($_GET["id"]);
         if (!$exec) {
-            $etat = false;
+            $form['valide'] = false;
+            $form['message'] = 'Problème de suppression dans la table produit'; 
         } else {
-            $etat = true;
+            $form['valide'] = true;
+            $form['message'] = 'Produit supprimé avec succès';
         }
         header("Location: index.php?page=produit&etat=".$etat);
         exit;
     }
-    $liste = $produit->select();
+
+    $limite=3;
+    if(!isset($_GET['nopage'])){
+        $inf=0;
+        $nopage=0;
+    }
+    else{
+        $nopage=$_GET['nopage'];
+        $inf=$nopage * $limite;
+    }
+    $r = $produit->selectCount();
+    $nb = $r['nb']; 
+ 
+    $liste = $produit->selectLimit($inf, $limite);
+    $form["nbpages"] = ceil($nb/$limite);
+    $form["nopage"] = $nopage;
     echo $twig->render("produit.twig", array("form"=>$form,"liste"=>$liste));
 }
 
