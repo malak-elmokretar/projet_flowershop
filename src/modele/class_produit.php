@@ -9,6 +9,7 @@ class Produit{
     private $delete;
     private $selectLimit;
     private $selectCount;
+    private $selectIn;
 
     public function __construct($db){
         $this->db = $db;
@@ -18,7 +19,8 @@ class Produit{
         $this->update = $db->prepare("CALL modifierProduit(:p_id, :p_nom, :p_description, :p_prix, :p_idType, :p_idSaison, :p_quantite, :p_descriptionPhotoAlt)");
         $this->delete = $db->prepare("DELETE FROM produit WHERE id=:id");
         $this->selectLimit = $db->prepare("SELECT * FROM produit ORDER BY nom LIMIT :inf, :limite");
-        $this->selectCount =$db->prepare("SELECT COUNT(*) AS nb FROM produit"); 
+        $this->selectCount = $db->prepare("SELECT COUNT(*) AS nb FROM produit");
+        $this->selectIn = $this->db->prepare("SELECT * FROM produit WHERE FIND_IN_SET(id, :ids)");;
     }
 
     public function insert($nom, $description, $prix, $idType, $idSaison, $quantite, $photo, $p_descriptionPhotoAlt){
@@ -84,5 +86,15 @@ class Produit{
         }
         return $this->selectCount->fetch();
     }
+    
+    public function selectIn($ids){
+        $implose = implode(',', $ids);
+        $this->selectIn->bindParam(':ids', $implose);
+        $this->selectIn->execute();
+        if ($this->selectIn->errorCode()!=0){
+            print_r($this->selectIn->errorInfo());
+        }
+        return $this->selectIn->fetchAll();
+    } 
 }
 ?>

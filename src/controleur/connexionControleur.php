@@ -24,6 +24,6 @@ function connexionControleur($twig, $db){
         }
     }
 
-    echo $twig->render("connexion", array("form"=>$form));
+    echo $twig->render("connexion.twig", array("form"=>$form));
 }
 ?>

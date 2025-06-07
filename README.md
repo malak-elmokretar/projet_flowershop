@@ -125,19 +125,6 @@ Vous pouvez maintenant rechercher sur votre **navigateur** `http://projet_flower
 
 What optimizations did you make in your code? E.g. refactors, performance improvements, accessibility
 
-
-## Screenshots
-
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
-
-
-## Projet lié
-
-Ce projet est lié au deuxième projet de l'épreuve E5 : l'application mobile Administrateur.
-
-[Retrouvez l'application mobile ici](https://github.com/malak-elmokretar/projet_flowershop_application_mobile)
-
-
 ## Support et feedback
 
 Pour toute demande de support, vous pouvez me contacter par e-mail: elmokretarmalak25@gmail.com.

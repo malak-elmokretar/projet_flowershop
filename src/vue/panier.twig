@@ -1,0 +1,67 @@
+{% extends "base.twig" %}
+{% block title %}{{ parent() }} - Panier{% endblock %}
+
+{% block contenu %}
+{{ parent() }}
+<div class="container my-5">
+  {% if session.panier is defined %}
+    <h1 class="mb-4">Votre Panier</h1>
+    <form action="index.php?page=panier" method="post">
+      <div class="table-responsive">
+        <table class="table align-middle table-hover">
+          <thead class="table-light">
+            <tr>
+              <th scope="col" colspan="2">Produit</th>
+              <th scope="col">Prix</th>
+              <th scope="col">Quantité</th>
+              <th scope="col">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% set total = 0 %}
+            {% for utilisateur in liste %}
+              {% set somme = session.panier[utilisateur.idUtilisateur] * utilisateur.prix %}
+              {% set total = total + somme %}
+              <tr>
+                <td>
+                  <a href="index.php?page=produitfiche&id={{ utilisateur.idUtilisateur }}" class="text-decoration-none fw-bold">
+                    {{ utilisateur.nom }}
+                  </a>
+                </td>
+                <td>
+                  <a href="index.php?page=panier&remove={{ utilisateur.idUtilisateur }}" class="btn btn-sm btn-outline-danger">
+                    <i class="bi bi-trash"></i> Supprimer
+                  </a>
+                </td>
+                <td>{{ utilisateur.prix }} €</td>
+                <td style="max-width: 100px;">
+                  <input type="number" name="q-{{ utilisateur.idUtilisateur }}" class="form-control" min="1" max="100" value="{{ session.panier[utilisateur.idUtilisateur] }}" required>
+                </td>
+                <td>{{ somme }} €</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center my-4">
+        <h4>Total : <span class="text-primary">{{ total }} €</span></h4>
+        <input type="hidden" name="montant" value="{{ total }}">
+        <div>
+          <button type="submit" name="update" class="btn btn-outline-secondary me-2">
+            Mettre à jour
+          </button>
+          <button type="submit" name="placerCommade" class="btn btn-primary">
+            Passer la commande
+          </button>
+        </div>
+      </div>
+    </form>
+  {% else %}
+    <div class="alert alert-info text-center mt-5">
+      <h2>Votre panier est vide</h2>
+      <p>Parcourez nos produits pour ajouter des articles.</p>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

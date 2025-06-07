@@ -1,0 +1,14 @@
+{% extends "base.twig" %}
+{% block title %} {{ parent() }}Fiche produit{% endblock %}
+{% block contenu %}  {{ parent() }}
+
+<h1>Fiche produit</h1>
+
+<form action="index.php?page=produitFiche" method="post" enctype="application/x
+www-form-urlencoded"> 
+<input type="hidden" name="id" value="{{ form.produit.id }}" />
+<button class="btn btn-warning rounded-pill" type="submit" name="btAjoutP">Ajouter 
+au panier</button> 
+</form>
+
+{% endblock %}
