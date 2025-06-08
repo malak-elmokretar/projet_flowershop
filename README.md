@@ -41,7 +41,7 @@ Sur `Windows`
 
 Sur `Windows`
 
-Installer [WAMP SERVER](https://www.wampserver.com/) [(Voir les paramètres)](#)
+Installer [WAMP SERVER](https://wampserver.aviatechno.net/) [(Voir les paramètres)](#)
 
 Cloner le projet
 
@@ -49,7 +49,7 @@ Cloner le projet
   git clone https://github.com/malak-elmokretar/projet_flowershop.git
 ```
 
-Go to the project directory
+Aller dans le répertoire du projet
 
 ```bash
   cd projet_flowershop
@@ -109,13 +109,13 @@ Dans votre **navigateur**, rechercher l'adresse
 
 Remplir l'input "Nom du Virtual Host" : Flowershop
 
-Remplir l'input "Chemin complet absolu du dossier VirtualHost" : `C:\wamp64\www\projet_flowershop`
+Remplir l'input "Chemin complet absolu du dossier VirtualHost" : `C:/wamp64/www/projet_flowershop/public`
 
 Cliquer sur "Démarrer la création ou la modification du VirtualHost"
 
 Dans Outils, cliquer sur Redémarrage DNS
 
-Vous pouvez maintenant rechercher sur votre **navigateur** `http://projet_flowershop/public` !
+Rechercher dans votre **navigateur** `http://projet_flowershop/`
 ## Features
 
 - Inscription et connexion sécurisées
