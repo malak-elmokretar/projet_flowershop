@@ -17,6 +17,7 @@ function getPage($db){
     $lesPages["utilisateur"] = "utilisateurControleur;1";
     $lesPages["utilisateurModif"] = "utilisateurModifControleur;1";
     $lesPages["recherche"] = "rechercheControleur;0";
+    $lesPages["produitFiche"] = "produitFicheControleur;0";
     $lesPages["produitAdmin"] = "produitAdminControleur;1";
     $lesPages["panier"] = "panierControleur;0";
 
