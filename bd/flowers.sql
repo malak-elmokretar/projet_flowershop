@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : sam. 07 juin 2025 à 22:53
+-- Généré le : mar. 10 juin 2025 à 17:06
 -- Version du serveur : 8.3.0
 -- Version de PHP : 8.2.18
 
@@ -48,15 +48,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `inscription` (IN `p_email` VARCHAR(
 	INSERT INTO utilisateur(email, mdp, nom, prenom, idRole) VALUES (p_email, p_mdp, p_nom, p_prenom, p_idRole);
 END$$
 
-DROP PROCEDURE IF EXISTS `listerProduits`$$
-CREATE DEFINER=`malak`@`%` PROCEDURE `listerProduits` ()   BEGIN
-	SELECT produit.id, produit.nom, description, prix, type.libelle, saison.nomSaison, quantite, photo, descriptionPhotoAlt
-    FROM produit
-    LEFT JOIN saison ON produit.idSaison = saison.id
-    LEFT JOIN type ON produit.idType = type.id
-    ORDER BY produit.nom;
-END$$
-
 DROP PROCEDURE IF EXISTS `listerProduitsParId`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `listerProduitsParId` (IN `p_idProduit` INT)   BEGIN
 	SELECT produit.id, nom, description, prix, type.libelle, taille, nomSaison, quantite, photo, descriptionPhotoAlt
@@ -64,19 +55,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `listerProduitsParId` (IN `p_idProdu
     LEFT JOIN type ON produit.idType = type.id
     LEFT JOIN saison ON produit.idSaison = saison.id
     WHERE produit.id = p_idProduit;
-END$$
-
-DROP PROCEDURE IF EXISTS `listerRoles`$$
-CREATE DEFINER=`malak`@`%` PROCEDURE `listerRoles` ()   BEGIN
-SELECT id, libelle FROM role;
-END$$
-
-DROP PROCEDURE IF EXISTS `listerUtilisateurs`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listerUtilisateurs` ()   BEGIN
-	SELECT utilisateur.idUtilisateur, email, idRole, nom, prenom, libelle
-    FROM utilisateur
-    JOIN role ON utilisateur.idRole = role.id
-    ORDER BY nom;
 END$$
 
 DROP PROCEDURE IF EXISTS `listerUtilisateursParId`$$
@@ -202,6 +180,25 @@ CREATE TABLE IF NOT EXISTS `composer` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `contact`
+--
+
+DROP TABLE IF EXISTS `contact`;
+CREATE TABLE IF NOT EXISTS `contact` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `objet` varchar(100) DEFAULT NULL,
+  `nom` varchar(50) DEFAULT NULL,
+  `prenom` varchar(50) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `telephone` varchar(10) DEFAULT NULL,
+  `message` text,
+  `dateEnvoi` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `fournisseur`
 --
 
@@ -230,6 +227,21 @@ INSERT INTO `fournisseur` (`id`, `nom`, `adresse`, `ville`, `codePostal`, `numer
 (6, 'L\'Art Floral', '9 Boulevard de la République', 'Aix-en-Provence', 13100, '04 42 21 6', 'art@floral-aix.fr', 'www.artfloral-aix.fr'),
 (7, 'Fleurs et Bouquets', '45 Rue de la Gare', 'Cannes', 6400, '04 97 06 8', 'contact@fleursetbouquets-cannes.fr', 'www.fleursetbouquets-cannes.fr'),
 (8, 'Fleuriste du Parc', '22 Allée des Acacias', 'Antibes', 6600, '04 93 34 5', 'parc@fleuriste-antibes.fr', 'www.fleuristeduparc.fr');
+
+-- --------------------------------------------------------
+
+--
+-- Doublure de structure pour la vue `listeroccasions`
+-- (Voir ci-dessous la vue réelle)
+--
+DROP VIEW IF EXISTS `listeroccasions`;
+CREATE TABLE IF NOT EXISTS `listeroccasions` (
+`dateDebut` date
+,`dateFin` date
+,`idOccasion` int
+,`libelleOccasion` varchar(100)
+,`nomSaison` varchar(100)
+);
 
 -- --------------------------------------------------------
 
@@ -285,11 +297,11 @@ CREATE TABLE IF NOT EXISTS `listertype` (
 --
 DROP VIEW IF EXISTS `listerutilisateurs`;
 CREATE TABLE IF NOT EXISTS `listerutilisateurs` (
-`idUtilisateur` int
+`email` varchar(100)
+,`idUtilisateur` int
+,`libelle` varchar(50)
 ,`nom` varchar(100)
 ,`prenom` varchar(100)
-,`email` varchar(100)
-,`libelle` varchar(50)
 );
 
 -- --------------------------------------------------------
@@ -356,7 +368,7 @@ INSERT INTO `produit` (`id`, `nom`, `description`, `prix`, `idType`, `idSaison`,
 (2, 'Tulipes', 'ipsum', 8, 1, 0, 0, './images/bouquet4.png', 'un bouquet de tulipes'),
 (3, 'Marguerite', 'lorem ipsum', 7.99, 1, 4, 0, './images/bouquet7.png', ''),
 (6, 'Pivoine', 'Une jolie fleur printanière', 3, 4, 1, 842, './images/bouquetPivoines', 'Photo de pivoines'),
-(7, 'Muguet', 'Brins de muguet ', 9.99, 1, 1, 50, NULL, 'brin de muguet'),
+(7, 'Muguet', 'Brins de muguet ', 9.99, 1, 1, 50, './images/bouquetMuguet', 'brin de muguet'),
 (8, 'Muguet', 'Brins de muguet ', 15, 1, 1, 50, NULL, 'brin de muguet');
 
 -- --------------------------------------------------------
@@ -513,6 +525,16 @@ INSERT INTO `utilisateur_supprime` (`id`, `idUtilisateurSupprime`, `email`, `mdp
 (1, 1, 'elmokretarmalak25@gmail.com', '$2y$10$.AFGFVhZOVGdnvMaBYEqYet9yy5kjOgHUHn681/oac4gGvCtkWnM2', 'EL MOKRETAR', 'Malak', 1, '2025-04-30 11:33:12'),
 (2, 8, 'hammedikelian@gmail.com', '$2y$10$fxlqi8eIBW1UVBZ6YnjKmO.FTVpcFVon3KHR0JOBMYXmjY00SMnRS', 'kelian', 'kelian', 1, '2025-05-22 09:42:14'),
 (3, 37, 'daniel.robert@live.fr', '$2y$10$v7zklgA4RODICe6gca6q5OB5OjukHLQL4hpVvrdhS7YsNipZnoDca', 'Robert', 'Daniel', 1, '2025-06-06 21:06:40');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la vue `listeroccasions`
+--
+DROP TABLE IF EXISTS `listeroccasions`;
+
+DROP VIEW IF EXISTS `listeroccasions`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`admin`@`%` SQL SECURITY DEFINER VIEW `listeroccasions`  AS SELECT `occasion`.`idOccasion` AS `idOccasion`, `occasion`.`libelleOccasion` AS `libelleOccasion`, `saison`.`nomSaison` AS `nomSaison`, `occasion`.`dateDebut` AS `dateDebut`, `occasion`.`dateFin` AS `dateFin` FROM (`occasion` join `saison` on((`occasion`.`idSaison` = `saison`.`id`))) ;
 
 -- --------------------------------------------------------
 
