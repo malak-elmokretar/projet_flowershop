@@ -18,7 +18,7 @@ function utilisateurControleur($twig, $db){
         exit;
     }
     
-    if(isset($_GET["id"])){
+    if (isset($_GET["id"])) {
         $exec = $utilisateur->delete($_GET["id"]);
         if (!$exec){
             $etat = false;
@@ -40,7 +40,7 @@ function utilisateurControleur($twig, $db){
 function utilisateurModifControleur($twig, $db){
     $form = array();
 
-    if(isset($_GET["id"])){
+    if (isset($_GET["id"])) {
         $utilisateur = new Utilisateur($db);
         $unUtilisateur = $utilisateur->selectById($_GET["id"]);
         if ($unUtilisateur != null){
@@ -52,7 +52,7 @@ function utilisateurModifControleur($twig, $db){
             $form["message"] = "Utilisateur incorrect";
         }
 
-    } elseif(isset($_POST["btModifier"])) {
+    } elseif (isset($_POST["btModifier"])) {
         $utilisateur = new Utilisateur($db);
         $nom = $_POST["nom"];
         $prenom = $_POST["prenom"];

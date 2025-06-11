@@ -13,13 +13,13 @@ class Produit{
 
     public function __construct($db){
         $this->db = $db;
-        $this->insert = $this->db->prepare("INSERT INTO produit (nom, description, prix, idType, idSaison, quantite, photo, descriptionPhotoAlt) VALUES (:p_nom, :p_description, :p_prix, :p_idType, :p_idSaison, :p_quantite, :p_photo, :p_descriptionPhotoAlt)");
+        $this->insert = $this->db->prepare("CALL ajouterProduit (:p_nom, :p_description, :p_prix, :p_idType, :p_idSaison, :p_quantite, :p_photo, :p_descriptionPhotoAlt)");
         $this->select = $db->prepare("SELECT * FROM listerProduits");
         $this->selectById = $db->prepare("SELECT produit.id, nom, description, prix, type.libelle, taille, nomSaison, quantite, photo, descriptionPhotoAlt FROM produit LEFT JOIN type ON produit.idType = type.id LEFT JOIN saison ON produit.idSaison = saison.id WHERE produit.id = :idProduit");
         $this->update = $db->prepare("CALL modifierProduit(:p_id, :p_nom, :p_description, :p_prix, :p_idType, :p_idSaison, :p_quantite, :p_descriptionPhotoAlt)");
         $this->delete = $db->prepare("DELETE FROM produit WHERE id=:id");
         $this->selectLimit = $db->prepare("SELECT * FROM produit ORDER BY nom LIMIT :inf, :limite");
-        $this->selectCount = $db->prepare("SELECT COUNT(*) AS nb FROM produit");
+        $this->selectCount = $db->prepare("SELECT * FROM selectNombre");
         $this->selectIn = $this->db->prepare("SELECT * FROM produit WHERE FIND_IN_SET(id, :ids)");;
     }
 

@@ -36,7 +36,8 @@
                                 <span class="text-muted">{{ produit.nomSaison }}</span>
                                 <span class="price text-success">{{ produit.prix }} €</span>
                             </div>
-                            <button class="btn btn-warning rounded-pill" type="submit" name="btnAjoutP">Ajouter au panier</button> 
+                            {# <button class="btn btn-warning rounded-pill" type="submit" name="btnAjoutP">Ajouter au panier</button>  #}
+                            <span><a href="index.php?page=produitFiche&id={{produit.id}}">AJouter</a></span>
                         </div>
                     </div>
                 </div>

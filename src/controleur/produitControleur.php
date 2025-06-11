@@ -5,11 +5,10 @@ function produitControleur($twig, $db){
     $produit = new Produit($db);
 
     $limite=3;
-    if(!isset($_GET['nopage'])){
+    if (!isset($_GET['nopage'])) {
         $inf=0;
         $nopage=0;
-    }
-    else{
+    } else {
         $nopage=$_GET['nopage'];
         $inf=$nopage * $limite;
     }
@@ -78,11 +77,10 @@ function produitAdminControleur($twig, $db) {
     }
 
     $limite=3;
-    if(!isset($_GET['nopage'])){
+    if (!isset($_GET['nopage'])) {
         $inf=0;
         $nopage=0;
-    }
-    else{
+    } else {
         $nopage=$_GET['nopage'];
         $inf=$nopage * $limite;
     }

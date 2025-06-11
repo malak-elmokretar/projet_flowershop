@@ -10,7 +10,7 @@ function connexionControleur($twig, $db){
         $utilisateur = new Utilisateur($db);
         $unUtilisateur = $utilisateur->connect($inputEmail);
         if ($unUtilisateur!=null){
-            if(!password_verify($inputPassword,$unUtilisateur["mdp"])){
+            if (!password_verify($inputPassword,$unUtilisateur["mdp"])){
                 $form["valide"] = false;
                 $form["message"] = "Login ou mot de passe incorrect";
             } else { 

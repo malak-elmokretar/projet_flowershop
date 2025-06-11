@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 10 juin 2025 à 17:06
+-- Généré le : mer. 11 juin 2025 à 09:11
 -- Version du serveur : 8.3.0
 -- Version de PHP : 8.2.18
 
@@ -90,6 +90,11 @@ DROP PROCEDURE IF EXISTS `modifierUtilisateur`$$
 CREATE DEFINER=`malak`@`%` PROCEDURE `modifierUtilisateur` (IN `p_idUtilisateur` INT, `p_email` VARCHAR(100), `p_nom` VARCHAR(100), `p_prenom` VARCHAR(100), `p_idRole` INT)   BEGIN
 	UPDATE utilisateur
     SET nom = p_nom, prenom = p_prenom, idRole = p_idRole, email = p_email WHERE idUtilisateur = p_idUtilisateur;
+END$$
+
+DROP PROCEDURE IF EXISTS `supprimerUtilisateur`$$
+CREATE DEFINER=`admin`@`%` PROCEDURE `supprimerUtilisateur` (IN `p_idUtilisateur` INT)   BEGIN
+	DELETE FROM utilisateur WHERE idUtilisateur=p_idUtilisateur;
 END$$
 
 DELIMITER ;
@@ -461,7 +466,7 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   PRIMARY KEY (`idUtilisateur`),
   UNIQUE KEY `email` (`email`),
   KEY `idRole` (`idRole`)
-) ENGINE=MyISAM AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `utilisateur`
@@ -482,7 +487,9 @@ INSERT INTO `utilisateur` (`idUtilisateur`, `email`, `mdp`, `nom`, `prenom`, `id
 (34, 'alice.dupont@gmail.com', '$2y$10$CGSRBt9WrDmTIPV01Wbbxux2vPkJXP0gvsS5mnGzlY2jUTM180xtm', 'Dupont', 'Alice', 2),
 (42, 'isabelle.faure@free.fr', '$2y$10$LhfQjbV6CGZwFPDij2alCOUifOCKHd1cZF/2N0wc/SrKPoo0vSDa2', 'Faure', 'Isabelle', 2),
 (45, 'malakvreiuh@gmail.com', '$2y$10$lvE4dPNmpyH2TlFOvBVejO/sewOWpLYp96uxDtGl1JPTUiGumrbZe', 'malak', 'malak', 1),
-(44, 'romain.lagarde@handballjo.com', '$2y$10$r8jpoTpU8iaNUWXs91NaX.qAucG9.jo7Cpl6JocOyomjx45gEanlm', 'Lagarde', 'Romain', 2);
+(44, 'romain.lagarde@handballjo.com', '$2y$10$r8jpoTpU8iaNUWXs91NaX.qAucG9.jo7Cpl6JocOyomjx45gEanlm', 'Lagarde', 'Romain', 2),
+(46, 'jurybts02@lyceeaubanel.fr', '$2y$10$XC0IK48F/XHYqjLOoZcVQOYcxQYiwma7X3KdcHkOwliTOAI0w/LWi', 'JURY', 'Jury', 2),
+(47, 'jurybts01@lyceeaubanel.fr', '$2y$10$F/W1u1LHPoyK5TK8mAYowOYD69TVpKaU2/5V/aRnaSKvJg1.8y/Fy', 'JURY', 'Jury', 1);
 
 --
 -- Déclencheurs `utilisateur`

@@ -2,28 +2,18 @@
 {% block title %}{{ parent() }} - {{ produit.nom }}{% endblock %}
 
 {% block contenu %} {{parent()}}
+
 <div class="container my-5">
   <div class="row">
-    <!-- Image Produit -->
     <div class="col-md-6 mb-4">
       <div class="product-image text-center">
         <img src="./images/bouquet1.png" alt="{{ produit.descriptionAlt }}" class="img-fluid rounded shadow-sm">
       </div>
     </div>
-
-    <!-- Infos Produit -->
+  
     <div class="col-md-6">
       <h1 class="mb-3">PRoduit 1{{ produit.nom }}</h1>
       <p class="lead">Description lorem ipsum fiefi{{ produit.description }}</p>
-
-      <!-- Caractéristiques (si applicable) -->
-      {% if produit.caracteristiques is defined %}
-        <ul class="list-unstyled mb-4">
-          {% for caractere in produit.caracteristiques %}
-            <li><strong>{{ caractere.label }}:</strong> {{ caractere.valeur }}</li>
-          {% endfor %}
-        </ul>
-      {% endif %}
 
       <!-- Formulaire Ajout Panier -->
       <form action="index.php?page=produitFiche" method="post" enctype="application/x-www-form-urlencoded">

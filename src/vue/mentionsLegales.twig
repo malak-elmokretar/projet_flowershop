@@ -1,66 +1,69 @@
 {% extends "base.twig" %}
-{% block title %} {{ parent() }}Mentions légales{% endblock %}
-{% block contenu %}  {{ parent() }}
-<h1>Mentions légales</h1>
 
-<h2>1 - Édition du site<h2>
+{% block title %}{{ parent() }}Mentions légales{% endblock %}
 
-<p>En vertu de l'article 6 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique, il est précisé aux utilisateurs du site internet <a href="index.php">https://fleur.fr</a> l'identité des différents intervenants dans le cadre de sa réalisation et de son suivi:
-{# <br> #}
-<br> Propriétaire du site : EL MOKRETAR Malak - Contact : elmokretarmalak25@gmail.com - Adresse : .
-{# <br> #}
-<br> Identification de l'entreprise : Nom + prénom de l'entrepreneur au capital social de € - SIREN : - RCS ou RM : - Adresse postale : - https://fleur.fr/cgv [Consignes : ajoutez ici le lien hypertexte vers la page de vos conditions générales de vente si vous en avez une]
-{# <br> #}
-<br> Directeur de la publication : - Contact : .
-{# <br>  #}
-<br> Hébergeur : Autre
-{# <br>  #}
-<br> Délégué à la protection des données : -
-{# <br>  #}
-<br> Autres contributeurs :</p>
+{% block contenu %}{{ parent() }}
 
-<h2>2 - Propriété intellectuelle et contrefaçons.</h2>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
 
-<p>Nom + prénom de l'entrepreneur est propriétaire des droits de propriété intellectuelle et détient les droits d’usage sur tous les éléments accessibles sur le site internet, notamment les textes, images, graphismes, logos, vidéos, architecture, icônes et sons.
+      <h1 class="mb-4 display-5 text-primary">Mentions légales</h1>
 
-Toute reproduction, représentation, modification, publication, adaptation de tout ou partie des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite, sauf autorisation écrite préalable de Nom + prénom de l'entrepreneur.
+      <section class="mb-5">
+        <h2 class="h4 border-bottom pb-2 mb-3">1 - Édition du site</h2>
+        <p>
+          Conformément à l'article 6 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique, voici les intervenants du site <a href="http://flowershop/" class="link-primary" target="_blank">Nabi</a> :
+        </p>
+        <ul class="list-unstyled ps-3">
+          <li><strong>Propriétaire :</strong> EL MOKRETAR Malak - <a href="mailto:elmokretarmalak25@gmail.com">elmokretarmalak25@gmail.com</a></li>
+          <li><strong>Entreprise :</strong> EL MOKRETAR Malak – Capital : 200 000€ – SIREN : – RCS : – <a href="./index.php?page=cgv" class="link-primary">CGV</a></li>
+          <li><strong>Directeur de la publication :</strong> EL MOKRETAR Malak – Contact : <a href="mailto:elmokretarmalak25@gmail.com">elmokretarmalak25@gmail.com</a><</li>
+          <li><strong>Hébergeur :</strong> Autre</li>
+        </ul>
+      </section>
 
-Toute exploitation non autorisée du site ou de l’un quelconque des éléments qu’il contient sera considérée comme constitutive d’une contrefaçon et poursuivie conformément aux dispositions des articles L.335-2 et suivants du Code de Propriété Intellectuelle.</p>
+      <section class="mb-5">
+        <h2 class="h4 border-bottom pb-2 mb-3">2 - Propriété intellectuelle</h2>
+        <p>
+          Tous les éléments du site (textes, images, vidéos, etc.) sont protégés par le Code de la propriété intellectuelle. Toute utilisation non autorisée est interdite.
+        </p>
+      </section>
 
-<h2>3 - Limitations de responsabilité.</h2>
-<p>Nom + prénom de l'entrepreneur ne pourra être tenu pour responsable des dommages directs et indirects causés au matériel de l’utilisateur, lors de l’accès au site https://fleur.fr.
+      <section class="mb-5">
+        <h2 class="h4 border-bottom pb-2 mb-3">3 - Limitations de responsabilité</h2>
+        <p>
+          Le propriétaire ne saurait être tenu responsable des dommages directs ou indirects liés à l'utilisation du site. Il se réserve le droit de modérer les contributions des utilisateurs.
+        </p>
+      </section>
 
-Nom + prénom de l'entrepreneur décline toute responsabilité quant à l’utilisation qui pourrait être faite des informations et contenus présents sur https://fleur.fr.
+      <section class="mb-5">
+        <h2 class="h4 border-bottom pb-2 mb-3">4 - Données personnelles</h2>
+        <p>
+          Conformément à la loi "Informatique et Libertés", vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Contactez notre DPO à l'adresse : – .
+          <br>
+          <a href="/politiqueconfidentialite" class="link-primary">Politique de confidentialité</a>
+        </p>
+      </section>
 
-Nom + prénom de l'entrepreneur s’engage à sécuriser au mieux le site https://fleur.fr, cependant sa responsabilité ne pourra être mise en cause si des données indésirables sont importées et installées sur son site à son insu.
+      <section class="mb-5">
+        <h2 class="h4 border-bottom pb-2 mb-3">5 - Cookies et liens</h2>
+        <p>
+          Ce site utilise des cookies à des fins de mesure d’audience. Vous pouvez les refuser via les paramètres de votre navigateur.
+          <br>
+          <a href="/politiqueconfidentialite" class="link-primary">En savoir plus sur les cookies</a>
+        </p>
+      </section>
 
-Des espaces interactifs (espace contact ou commentaires) sont à la disposition des utilisateurs. Nom + prénom de l'entrepreneur se réserve le droit de supprimer, sans mise en demeure préalable, tout contenu déposé dans cet espace qui contreviendrait à la législation applicable en France, en particulier aux dispositions relatives à la protection des données.
+      <section class="mb-5">
+        <h2 class="h4 border-bottom pb-2 mb-3">6 - Droit applicable</h2>
+        <p>
+          Tout litige est soumis au droit français. En cas de litige, la compétence est attribuée aux tribunaux compétents d'Avignon.
+        </p>
+      </section>
 
-Le cas échéant, Nom + prénom de l'entrepreneur se réserve également la possibilité de mettre en cause la responsabilité civile et/ou pénale de l’utilisateur, notamment en cas de message à caractère raciste, injurieux, diffamant, ou pornographique, quel que soit le support utilisé (texte, photographie …).</p>
-
-<h2>4 - CNIL et gestion des données personnelles.</h2>
-<p>Conformément aux dispositions de la loi 78-17 du 6 janvier 1978 modifiée, l’utilisateur du site https://fleur.fr dispose d’un droit d’accès, de modification et de suppression des informations collectées. Pour exercer ce droit, envoyez un message à notre Délégué à la Protection des Données : - .
-
-Pour plus d'informations sur la façon dont nous traitons vos données (type de données, finalité, destinataire...), lisez notre https://fleur.fr/politiqueconfidentialite. [Consignes : ajoutez ici le lien hypertexte vers votre politique de confidentialité]</p>
-
-<h2>5 - Liens hypertextes et cookies</h2>
-<p>Le site https://fleur.fr contient des liens hypertextes vers d’autres sites et dégage toute responsabilité à propos de ces liens externes ou des liens créés par d’autres sites vers https://fleur.fr.
-
-La navigation sur le site https://fleur.fr est susceptible de provoquer l’installation de cookie(s) sur l’ordinateur de l’utilisateur.
-
-Un "cookie" est un fichier de petite taille qui enregistre des informations relatives à la navigation d’un utilisateur sur un site. Les données ainsi obtenues permettent d'obtenir des mesures de fréquentation, par exemple.
-
-Vous avez la possibilité d’accepter ou de refuser les cookies en modifiant les paramètres de votre navigateur. Aucun cookie ne sera déposé sans votre consentement.
-
-Les cookies sont enregistrés pour une durée maximale de mois.
-
-Pour plus d'informations sur la façon dont nous faisons usage des cookies, lisez notre https://fleur.fr/politiqueconfidentialite. [Consignes : ajoutez ici le lien hypertexte vers votre politique de confidentialité ou vers votre politique de cookies si vous en avez une (c'est le cas si vous utilisez Complianz)]</p>
-
-<h2>6 - Droit applicable et attribution de juridiction.</h2>
-<p>Tout litige en relation avec l’utilisation du site https://fleur.fr est soumis au droit français. En dehors des cas où la loi ne le permet pas, il est fait attribution exclusive de juridiction aux tribunaux compétents de .
-</p>
- 
+    </div>
+  </div>
+</div>
 
 {% endblock %}
-
-{# https://la-webeuse.com/generateur-mentions-legales #}

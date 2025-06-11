@@ -15,10 +15,10 @@ class Utilisateur{
         $this->insert = $this->db->prepare("CALL inscription (:email, :mdp, :nom, :prenom, :role)");
         $this->connect = $this->db->prepare("CALL connexion (:email)");
         $this->select = $db->prepare("SELECT * FROM listerUtilisateurs");
-        $this->selectById = $db->prepare("SELECT idUtilisateur, email, nom, prenom, idRole FROM utilisateur WHERE idUtilisateur=:idUtilisateur ORDER BY idUtilisateur");
+        $this->selectById = $db->prepare("SELECT idUtilisateur, email, nom, prenom, idRole FROM utilisateur WHERE idUtilisateur=:p_idUtilisateur ORDER BY idUtilisateur");
         $this->update = $db->prepare("CALL modifierUtilisateur(:idUtilisateur, :email, :nom, :prenom, :role)");
         $this->updateMDP = $db->prepare("CALL modifierMDP(:idUtilisateur, :mdp)");
-        $this->delete = $db->prepare("DELETE FROM utilisateur WHERE idUtilisateur=:idUtilisateur");
+        $this->delete = $db->prepare("CALL supprimerUtilisateur(:idUtilisateur)");
     }
 
     public function insert($email, $mdp, $role, $nom, $prenom){
@@ -49,7 +49,7 @@ class Utilisateur{
     }
 
     public function selectById($id){
-        $this->selectById->execute(array(":idUtilisateur"=>$id));
+        $this->selectById->execute(array(":p_idUtilisateur"=>$id));
         if ($this->selectById->errorCode()!=0){
             print_r($this->selectById->errorInfo());
         }

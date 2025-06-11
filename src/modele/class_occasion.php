@@ -6,7 +6,7 @@ class Occasion {
 
     public function __construct($db){
         $this->db = $db;
-        $this->selectOccasion = $db->prepare("SELECT * FROM Occasion");
+        $this->selectOccasion = $db->prepare("SELECT * FROM listerOccasion");
     }
 
     public function selectOccasion(){
