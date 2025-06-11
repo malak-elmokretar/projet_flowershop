@@ -20,6 +20,7 @@ function getPage($db) {
     $lesPages["produitFiche"] = "produitFicheControleur;0";
     $lesPages["produitAdmin"] = "produitAdminControleur;1";
     $lesPages["panier"] = "panierControleur;0";
+    $lesPages["listeMessages"] = "listeMessagesControleur;0";
 
     if ($db!=null) {
         if (isset($_GET['page'])) {

@@ -8,9 +8,6 @@ function aProposControleur($twig){
     echo $twig->render("aPropos.twig", array());
 }
 
-function contactControleur($twig){
-    echo $twig->render("contact.twig", array());
-}
 
 function mentionsLegalesControleur($twig){
     echo $twig->render("mentionsLegales.twig", array());

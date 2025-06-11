@@ -7,5 +7,6 @@ require_once "class_occasion.php";
 require_once "class_type.php";
 require_once "class_saison.php";
 require_once "class_upload.php";
+require_once "class_contact.php";
 
 ?>

@@ -106,7 +106,7 @@ nav img{
 }
 
 
-div.form_inscription, div.form_connexion, div.form_modifierProduit, div.form_ModifUtilisateur {
+div.form_inscription, div.form_connexion, div.form_modifierProduit, div.form_ModifUtilisateur, div.form_contact {
     background-image: url('../images/logo.png');
     background-repeat: no-repeat;
     background-position: center;
