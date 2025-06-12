@@ -1,19 +1,11 @@
 <?php
 
 class Produit{
-    private $db;
-    private $insert;
-    private $select;
-    private $selectById;
-    private $update;
-    private $delete;
-    private $selectLimit;
-    private $selectCount;
-    private $selectIn;
+    private $db, $insert, $select, $selectById, $update, $delete, $selectLimit, $selectCount, $selectIn;
 
     public function __construct($db){
         $this->db = $db;
-        $this->insert = $this->db->prepare("CALL ajouterProduit (:p_nom, :p_description, :p_prix, :p_idType, :p_idSaison, :p_quantite, :p_photo, :p_descriptionPhotoAlt)");
+        $this->insert = $this->db->prepare("CALL ajouterProduit (:p_nom, :p_description, :p_prix, :p_idType, :p_idSaison, :p_quantite, :p_descriptionPhotoAlt)");
         $this->select = $db->prepare("SELECT * FROM listerProduits");
         $this->selectById = $db->prepare("SELECT produit.id, nom, description, prix, type.libelle, taille, nomSaison, quantite, photo, descriptionPhotoAlt FROM produit LEFT JOIN type ON produit.idType = type.id LEFT JOIN saison ON produit.idSaison = saison.id WHERE produit.id = :idProduit");
         $this->update = $db->prepare("CALL modifierProduit(:p_id, :p_nom, :p_description, :p_prix, :p_idType, :p_idSaison, :p_quantite, :p_descriptionPhotoAlt)");
@@ -23,9 +15,9 @@ class Produit{
         $this->selectIn = $this->db->prepare("SELECT * FROM produit WHERE FIND_IN_SET(id, :ids)");;
     }
 
-    public function insert($nom, $description, $prix, $idType, $idSaison, $quantite, $photo, $p_descriptionPhotoAlt){
+    public function insert($nom, $description, $prix, $idType, $idSaison, $quantite, $p_descriptionPhotoAlt){
         $r = true;
-        $this->insert->execute(array(":p_nom"=>$nom, ":p_description"=>$description, ":p_prix"=>$prix, ":p_idType"=>$idType, ":p_idSaison"=>$idSaison, ":p_quantite" => $quantite, ":p_photo"=>$photo, ":p_descriptionPhotoAlt" => $p_descriptionPhotoAlt));
+        $this->insert->execute(array(":p_nom"=>$nom, ":p_description"=>$description, ":p_prix"=>$prix, ":p_idType"=>$idType, ":p_idSaison"=>$idSaison, ":p_quantite" => $quantite, ":p_descriptionPhotoAlt" => $p_descriptionPhotoAlt));
 
         if ($this->insert->errorCode()!=0){
             print_r($this->insert->errorInfo());

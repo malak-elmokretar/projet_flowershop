@@ -9,36 +9,6 @@ html, body {
 
 
 @font-face {
-    font-family: "Billing Lottre";
-    src: url("../fonts/billing_lottre/BillingLottre-Regular.otf") format('opentype');
-}
-
-@font-face {
-    font-family: "Horge";
-    src: url("../fonts/horge/Horge.otf") format('opentype');
-}
-
-@font-face {
-    font-family: "White Dream";
-    src: url("../fonts/white_dream/WhiteDreamPERSONALUSEONLY-Regular.otf") format('opentype');
-}
-
-@font-face {
-    font-family: "Makes you stronger";
-    src: url("../fonts/kg_makes_you_stronger/KGMakesYouStronger.ttf") format('truetype');
-}
-
-@font-face {
-    font-family: "Wonderly";
-    src: url("../fonts/wonderly/Wonderly.otf") format('opentype');
-}
-
-@font-face {
-    font-family: "Simple Michael";
-    src: url("../fonts/simple_michael/SimpleMichael.otf") format('opentype');
-}
-
-@font-face {
     font-family: "Playfair Display";
     src: url("../fonts/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf") format("truetype");
 }
@@ -119,12 +89,10 @@ div.form_inscription, div.form_connexion, div.form_modifierProduit, div.form_Mod
 
 div.form_inscription .btn{
     justify-content: center;
-    /* background-image: url('../images/logo.png'); */
 }
 
 footer{
     background-color: #3D482A;
-    /* color: #FAA96C; */
     display: flex;
     justify-content: space-around;
     position: static;
@@ -132,11 +100,9 @@ footer{
 
 footer ul{
     list-style-type: none;
-    /* color: #FF9F74; */
 }
 
 footer div span{
-    /* list-style-type: none; */
     color: #f2e3c2;
     font-weight: bold;
 }
@@ -156,8 +122,6 @@ footer ul li a:hover{
 
 .btn{
     background-color: #FAA96C;
-	/* background-color: #B89CC2; */
-    /* color:#e89CC2; */
     border: #FAA96C;
 } 
 
@@ -175,7 +139,7 @@ footer ul li a:hover{
     justify-content: center;
     align-items: center;
     text-align: center;
-    background-image: url('../../public/images/.png'); /* Remplacer par l'image de fond subtile et élégante */
+    background-image: url('../../public/images/.png');
     background-size: cover;
     background-position: center;
     color: #3e3e3e;
@@ -183,7 +147,7 @@ footer ul li a:hover{
 }
 
 .MaintenanceContent-box {
-    background-color: rgba(255, 255, 255, 0.8); /* Fond clair et subtil */
+    background-color: rgba(255, 255, 255, 0.8);
     padding: 30px;
     border-radius: 15px;
     max-width: 600px;
@@ -194,7 +158,7 @@ footer ul li a:hover{
 .divMaintenance h1 {
     font-family: 'Playfair Display', serif;
     font-size: 3rem;
-    color: #3D482A; /* Vert apaisant */
+    color: #3D482A;
     font-weight: 700;
     margin-bottom: 20px;
 }
@@ -254,12 +218,12 @@ footer ul li a:hover{
     font-weight: bold;
 }
 .btn-sm {
-    padding: 0.25rem 0.5rem;  /* Réduit la taille du bouton */
-    font-size: 0.875rem;  /* Taille du texte réduite */
-    display: flex;  /* Utilise Flexbox pour centrer le texte */
-    justify-content: center;  /* Centrer le texte horizontalement */
-    align-items: center;  /* Centrer le texte verticalement */
-    text-align: center;  /* S'assurer que le texte est centré */
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 .btn-danger {
@@ -267,7 +231,6 @@ footer ul li a:hover{
     border-color: #dc3545;
 }
 
-/* Assure une bonne lisibilité sur tous les écrans */
 @media (max-width: 576px) {
     .card-body {
         padding: 1rem;
@@ -280,33 +243,28 @@ footer ul li a:hover{
     }
 }
 
-/* Conteneur du Masonry Grid */
 .masonry-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Crée des colonnes de largeur variable */
-    grid-gap: 30px; /* Espacement entre les cartes */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 30px;
 }
 
-/* Les éléments à l'intérieur du Masonry Grid */
 .masonry-item {
     display: flex;
     flex-direction: column;
 }
 
-/* Hauteur variable pour les cartes */
 .card {
     display: flex;
     flex-direction: column;
     height: 100%;
 }
 
-/* Pour les images */
 .card-img-top {
     object-fit: cover;
-    height: 200px; /* Hauteur fixe pour les images */
+    height: 200px;
 }
 
-/* Optionnel : effet de survol de la carte */
 .card:hover {
     transform: translateY(-5px);
     transition: transform 0.3s ease;
@@ -330,16 +288,12 @@ footer ul li a:hover{
   }
 
   .custom-pagination .page-item.active .page-link {
-    /* background-color: #007bff; */
     color: white;
-    /* border-color: #007bff; */
     font-weight: bold;
-    /* box-shadow: 0 4px 6px rgba(0, 123, 255, 0.2); */
   }
 
   .custom-pagination .page-link:hover {
     background-color: #e9ecef;
-    /* color: #0056b3; */
     text-decoration: none;
   }
 
@@ -354,12 +308,3 @@ footer ul li a:hover{
     -webkit-overflow-scrolling: touch;
     padding-bottom: 1rem;
   }
-
-
-/* https://dribbble.com/shots/21248179-App-UI */
-/* https://dribbble.com/shots/18894915-Flower-Store-App-Design */
-/* https://dribbble.com/shots/19553782--Website-for-a-flowers-shop-II */
-/* https://dribbble.com/shots/22564046-Magnolia-s-Florist-Website */
-/* https://dribbble.com/shots/16202368-Florist-Landingpage */
-/* https://dribbble.com/shots/17272076-Floristry-and-decor-studio-Website */
-/* https://dribbble.com/shots/19538842--Visual-Identity-for-a-flowers-shop-I */

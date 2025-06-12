@@ -36,18 +36,12 @@
                                 <span class="text-muted">{{ produit.nomSaison }}</span>
                                 <span class="price text-success">{{ produit.prix }} €</span>
                             </div>
-                            {# <button class="btn btn-warning rounded-pill" type="submit" name="btnAjoutP">Ajouter au panier</button>  #}
-                            <span><a href="index.php?page=produitFiche&id={{produit.id}}">AJouter</a></span>
+                            <span><a href="index.php?page=produitFiche&id={{produit.id}}">Plus d'informations</a></span>
                         </div>
                     </div>
                 </div>
             {% endfor %}
         </div>
-
-        {# <!-- Bouton SUPPRIMER centré -->
-        <div class="text-center mt-5">
-            <button class="btn btn-lg btn-primary" type="submit" name="btnSupprimer">SUPPRIMER</button>
-        </div> #}
 
         {% set nb = form.nbpages %}
         <div class="d-flex justify-content-center mt-4">

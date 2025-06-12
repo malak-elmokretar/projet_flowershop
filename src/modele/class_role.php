@@ -1,8 +1,7 @@
 <?php
 
 class Role {
-    private $db;
-    private $selectRole;
+    private $db, $selectRole;
 
     public function __construct($db){
         $this->db = $db;

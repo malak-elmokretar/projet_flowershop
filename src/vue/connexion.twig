@@ -5,22 +5,6 @@
 {% block contenu %}
 {{ parent() }}
 
-{# {% if form.valide is defined %} 
-    {% if form.valide == true %}
-        <h1>Connexion réussie !</h1>
-        <h1>Voici votre identifiant : {{form.email}}</h1>
-        {% if form.role == 1 %}
-        <h1>Vous êtes administrateur du site</h1>
-    {% else %}
-        <h1>Vous êtes un client du site </h1>
-    {% endif %}
-{% else %}
-    <h1>Echec de l'inscription</h1>
-    <h1>Erreur : {{form.message}}</h1>
-    <h1><a href="index.php?page=inscrire">Retourner sur la page d'inscription</a></h1>
-{% endif %}
-{% else %} #}
-
 {% if form.valide is defined %}
     {% if form.valide == false %}
         <p>Erreur: {{form.message}}</p>

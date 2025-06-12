@@ -1,9 +1,7 @@
 <?php
 
 class Contact{
-    private $db;
-    private $insert;
-    private $select;
+    private $db, $insert, $select;
 
     public function __construct($db){
         $this->db = $db;

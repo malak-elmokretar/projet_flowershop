@@ -1,8 +1,7 @@
 <?php
 
 class Type {
-    private $db;
-    private $selectType;
+    private $db, $selectType;
 
     public function __construct($db){
         $this->db = $db;

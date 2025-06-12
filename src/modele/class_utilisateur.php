@@ -1,14 +1,7 @@
 <?php
 
 class Utilisateur{
-    private $db;
-    private $insert;
-    private $connect;
-    private $select;
-    private $selectById;
-    private $update;
-    private $updateMDP;
-    private $delete;
+    private $db, $insert, $connect, $select, $selectById, $update, $updateMDP, $delete, $selectByEmail;
 
     public function __construct($db){
         $this->db = $db;
@@ -19,6 +12,7 @@ class Utilisateur{
         $this->update = $db->prepare("CALL modifierUtilisateur(:idUtilisateur, :email, :nom, :prenom, :role)");
         $this->updateMDP = $db->prepare("CALL modifierMDP(:idUtilisateur, :mdp)");
         $this->delete = $db->prepare("CALL supprimerUtilisateur(:idUtilisateur)");
+        $this->selectByEmail = $db->prepare("SELECT idUtilisateur, email FROM utilisateur WHERE email=:p_email");
     }
 
     public function insert($email, $mdp, $role, $nom, $prenom){
@@ -84,6 +78,14 @@ class Utilisateur{
             $r=false;
         }
         return $r;
+    }
+
+    public function selectByEmail($email){
+        $this->selectByEmail->execute(array(":p_email"=>$email));
+        if ($this->selectByEmail->errorCode()!=0){
+            print_r($this->selectByEmail->errorInfo());
+        }
+        return $this->selectByEmail->fetch();
     }
 }
 

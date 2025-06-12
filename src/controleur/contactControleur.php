@@ -27,7 +27,6 @@ function listeMessagesControleur($twig, $db){
     $contact = new Contact($db); 
     $liste = $contact->select();
     echo $twig->render('listeContact.twig', array('form'=>$form,'liste'=>$liste));
-    // var_dump($liste);
 }
 
 ?>

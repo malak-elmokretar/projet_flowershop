@@ -107,7 +107,7 @@ function ajoutProduitControleur($twig, $db) {
         $photo = $upload->enregistrer('inputImageAjoutProduit');
         $inputTexteAlternatif = $_POST["inputTexteAlternatifImageAjoutProduit"];
         $produit = new Produit($db);
-        $exec = $produit->insert($inputNom, $inputDescription, $inputPrix, $inputType, $inputSaison, $inputQuantite, $photo["nom"], $inputTexteAlternatif);
+        $exec = $produit->insert($inputNom, $inputDescription, $inputPrix, $inputType, $inputSaison, $inputQuantite, $inputTexteAlternatif);
             if (!$exec){
                 $formInscription["valide"] = false;
                 $formInscription["message"] = "Problème d'insertion dans la table produit";
@@ -158,18 +158,33 @@ function modifierProduitControleur($twig, $db) {
     echo $twig->render("modifierProduit.twig", array("form"=>$form));
 }
 
-function produitFicheControleur($twig, $db) {
-    if (isset($_POST['btAjoutP'])) {
+function produitFicheControleur($twig, $db) { 
+    $form = array();
+    
+    if (isset($_GET["id"])) {
+        $produit = new Produit($db);
+        $unProduit = $produit->selectById($_GET["id"]);
+        if ($unProduit != null) {
+            $form['produit'] = $unProduit; 
+        } else {
+            $form['message'] = 'Produit incorrect'; 
+        }
+    } else {
+        $form['message'] = 'Produit non précisé'; 
+    }
+    
+    if (isset($_POST['btnAjoutP'])) {
         if (isset($_POST['id'])) {
-            $form['valideAjout']=true;
+            $form['valideAjout'] = true;
+            $produit = new Produit($db);
             $unProduit = $produit->selectById($_POST['id']);
             if (!$unProduit) {
-                $form['valideAjout']=false;
+                $form['valideAjout'] = false;
                 $form['message'] = "Le produit n'existe pas";
             } else {
                 if (isset($_SESSION['panier']) && is_array($_SESSION['panier'])) {
                     if (array_key_exists($unProduit['id'], $_SESSION['panier'])) {
-                        $_SESSION['panier'][$unProduit['id']] ++;
+                        $_SESSION['panier'][$unProduit['id']]++;
                     } else {
                         $_SESSION['panier'][$unProduit['id']] = 1;
                     }
@@ -180,12 +195,12 @@ function produitFicheControleur($twig, $db) {
             }
         } else {
             $form['valideAjout'] = false;
-            $form['message'] = "Vous n'avez pas sélectionner de produit";
+            $form['message'] = "Vous n'avez pas sélectionné de produit";
         }
     }
-    echo $twig->render("produitFiche.twig", array(
-        // "form"=>$form
-    ));
+
+    echo $twig->render("produitFiche.twig", array("form" => $form));
 }
+
 
 ?>

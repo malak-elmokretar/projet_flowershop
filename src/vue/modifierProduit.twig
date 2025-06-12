@@ -21,7 +21,6 @@
 
                     <label for="type" class="sr-only">Type :</label>
                     
-                    {# <label for="saison" class="sr-only">Saison :</label> #}
                     <select class="form-control" name="type">
                         {% for type in form.type %}
                             <option value="{{ type.id }}" {% if type.id == form.type.id %}selected{% endif %}>
@@ -29,16 +28,6 @@
                             </option>
                         {% endfor %}
                     </select>
-
-                    {# <label for="saison" class="sr-only">Saison :</label>
-                    <select class="form-control" name="saison">
-                        {% for saison in listeSaison %}
-                            <option value="1">Printemps</option>
-                            <option value="2">Été</option>
-                            <option value="3">Automne</option>
-                            <option value="4">Hiver</option>
-                        {% endfor %}
-                    </select> #}
 
                     <label for="saison" class="sr-only">Saison :</label>
                     <select class="form-control" name="saison">

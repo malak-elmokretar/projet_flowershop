@@ -1,8 +1,7 @@
 <?php
 
 class Saison {
-    private $db;
-    private $selectSaison;
+    private $db, $selectSaison;
 
     public function __construct($db){
         $this->db = $db;

@@ -1,8 +1,7 @@
 <?php
 
 class Occasion {
-    private $db;
-    private $selectOccasion;
+    private $db, $selectOccasion;
 
     public function __construct($db){
         $this->db = $db;
