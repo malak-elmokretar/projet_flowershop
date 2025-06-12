@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 11 juin 2025 à 09:11
+-- Généré le : jeu. 12 juin 2025 à 03:45
 -- Version du serveur : 8.3.0
 -- Version de PHP : 8.2.18
 
@@ -18,17 +18,22 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `flowers`
+-- Base de données : `flowers2`
 --
 
 DELIMITER $$
 --
 -- Procédures
 --
+DROP PROCEDURE IF EXISTS `AjouterCompositionPanier`$$
+CREATE DEFINER=`admin`@`%` PROCEDURE `AjouterCompositionPanier` (IN `p_idCommande` INT, `p_idProduit` INT, `p_quantite` INT)   BEGIN 
+	INSERT INTO composer(idCommande, idProduit, quantite) VALUES (p_idCommande, p_idProduit, p_quantite);
+END$$
+
 DROP PROCEDURE IF EXISTS `ajouterProduit`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `ajouterProduit` (IN `p_nom` VARCHAR(100), IN `p_description` TEXT, IN `p_prix` FLOAT, IN `p_idType` INT, IN `p_idSaison` INT, IN `p_quantite` INT, IN `p_descriptionPhotoAlt` TEXT)   BEGIN
-	INSERT INTO produit (nom, description, prix, idType, idSaison, quantite, descriptionPhotoAlt)
-    	VALUES (p_nom, p_description, p_prix, p_idType, p_idSaison, p_quantite, p_descriptionPhotoAlt);
+	INSERT INTO produit (nom, description, prix, idType, idSaison, quantite, photo, descriptionPhotoAlt)
+    	VALUES (p_nom, p_description, p_prix, p_idType, p_idSaison, p_quantite, NULL, p_descriptionPhotoAlt);
 END$$
 
 DROP PROCEDURE IF EXISTS `connexion`$$
@@ -43,9 +48,31 @@ CREATE DEFINER=`admin`@`%` PROCEDURE `connexionAdministrateur` (IN `p_email` VAR
 	FROM utilisateur
 	WHERE email = p_email AND mdp = p_mdp AND idRole = 1$$
 
+DROP PROCEDURE IF EXISTS `contacterAdmin`$$
+CREATE DEFINER=`admin`@`%` PROCEDURE `contacterAdmin` (IN `p_objet` VARCHAR(100), IN `p_nom` VARCHAR(50), IN `p_prenom` VARCHAR(50), IN `p_email` VARCHAR(255), IN `p_telephone` VARCHAR(10), IN `p_message` TEXT)   BEGIN
+	INSERT INTO contact(objet, nom, prenom, email, telephone, message, dateEnvoi, recontacte) VALUES (p_objet, p_nom, p_prenom, p_email, p_telephone, p_message, CURRENT_TIMESTAMP(), FALSE);
+END$$
+
+DROP PROCEDURE IF EXISTS `creerCommande`$$
+CREATE DEFINER=`admin`@`%` PROCEDURE `creerCommande` (IN `p_montant` FLOAT, `p_dateCommande` DATETIME, `p_etat` INT, `p_idUtilisateur` INT)   BEGIN
+	INSERT INTO `commande`(`montant`, `dateCommande`, `etat`, `idUtilisateur`) VALUES (p_montant, p_dateCommande, p_etat, p_idUtilisateur);
+END$$
+
 DROP PROCEDURE IF EXISTS `inscription`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `inscription` (IN `p_email` VARCHAR(100), `p_mdp` VARCHAR(256), `p_nom` VARCHAR(100), `p_prenom` VARCHAR(100), `p_idRole` INT)   BEGIN
 	INSERT INTO utilisateur(email, mdp, nom, prenom, idRole) VALUES (p_email, p_mdp, p_nom, p_prenom, p_idRole);
+END$$
+
+DROP PROCEDURE IF EXISTS `ListerCommandesParDateClient`$$
+CREATE DEFINER=`admin`@`%` PROCEDURE `ListerCommandesParDateClient` (IN `p_idUtilisateur` INT, `p_dateCommande` DATETIME)   BEGIN
+	SELECT idCommande
+    FROM commande
+    WHERE idUtilisateur = p_idUtilisateur AND dateCommande = p_dateCommande;
+END$$
+
+DROP PROCEDURE IF EXISTS `listerMessages`$$
+CREATE DEFINER=`admin`@`%` PROCEDURE `listerMessages` ()   BEGIN
+	SELECT * FROM contact ORDER BY dateEnvoi, recontacte;
 END$$
 
 DROP PROCEDURE IF EXISTS `listerProduitsParId`$$
@@ -175,9 +202,10 @@ CREATE TABLE IF NOT EXISTS `commande` (
 
 DROP TABLE IF EXISTS `composer`;
 CREATE TABLE IF NOT EXISTS `composer` (
-  `idCommande` int DEFAULT NULL,
-  `idProduit` int DEFAULT NULL,
+  `idCommande` int NOT NULL,
+  `idProduit` int NOT NULL,
   `quantite` int DEFAULT NULL,
+  PRIMARY KEY (`idCommande`,`idProduit`),
   KEY `idCommande` (`idCommande`),
   KEY `idProduit` (`idProduit`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -198,8 +226,17 @@ CREATE TABLE IF NOT EXISTS `contact` (
   `telephone` varchar(10) DEFAULT NULL,
   `message` text,
   `dateEnvoi` datetime DEFAULT CURRENT_TIMESTAMP,
+  `recontacte` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `contact`
+--
+
+INSERT INTO `contact` (`id`, `objet`, `nom`, `prenom`, `email`, `telephone`, `message`, `dateEnvoi`, `recontacte`) VALUES
+(1, 'Achat de bouquet urgent', 'EL MOKRETAR', 'Malak', 'elmokretarmalak25@gmail.com', '0612345678', 'Achat de bouquet urgent', '2025-06-11 14:35:48', 0),
+(2, 'Test vidéo youtube', 'EL MOKRETAR', 'Malak', 'elmokretarmalak25@gmail.com', '0612345678', 'Test vidéo youtube Lorem ipsum', '2025-06-12 04:12:13', 0);
 
 -- --------------------------------------------------------
 
@@ -360,21 +397,32 @@ CREATE TABLE IF NOT EXISTS `produit` (
   `quantite` int NOT NULL,
   `photo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `descriptionPhotoAlt` text NOT NULL,
+  `idFournisseur` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idType` (`idType`),
-  KEY `idSaison` (`idSaison`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `idSaison` (`idSaison`),
+  KEY `fk_idFournisseur` (`idFournisseur`)
+) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `produit`
 --
 
-INSERT INTO `produit` (`id`, `nom`, `description`, `prix`, `idType`, `idSaison`, `quantite`, `photo`, `descriptionPhotoAlt`) VALUES
-(2, 'Tulipes', 'ipsum', 8, 1, 0, 0, './images/bouquet4.png', 'un bouquet de tulipes'),
-(3, 'Marguerite', 'lorem ipsum', 7.99, 1, 4, 0, './images/bouquet7.png', ''),
-(6, 'Pivoine', 'Une jolie fleur printanière', 3, 4, 1, 842, './images/bouquetPivoines', 'Photo de pivoines'),
-(7, 'Muguet', 'Brins de muguet ', 9.99, 1, 1, 50, './images/bouquetMuguet', 'brin de muguet'),
-(8, 'Muguet', 'Brins de muguet ', 15, 1, 1, 50, NULL, 'brin de muguet');
+INSERT INTO `produit` (`id`, `nom`, `description`, `prix`, `idType`, `idSaison`, `quantite`, `photo`, `descriptionPhotoAlt`, `idFournisseur`) VALUES
+(2, 'Tulipes', 'ipsum', 8, 1, 0, 20, './images/bouquet4.png', 'un bouquet de tulipes', NULL),
+(3, 'Marguerite', 'lorem ipsum', 7.99, 1, 4, 152, './images/bouquet7.png', '', NULL),
+(6, 'Pivoine', 'Une jolie fleur printanière', 3, 4, 1, 84, './images/bouquetPivoines', 'Photo de pivoines', NULL),
+(7, 'Muguet', 'Brins de muguet ', 9.99, 1, 1, 50, './images/Muguet', 'brin de muguet', NULL),
+(8, 'Muguet', 'Brins de muguet ', 15, 1, 1, 50, './images/muguet', 'brin de muguet', NULL),
+(19, 'Tulipe jaune', 'Tulipe d\'une couleur vive, idéale pour le printemps.', 2.8, 1, 1, 60, './images/tulipe.jpg', 'Photo d\'une tulipe jaune', 4),
+(20, 'Lys blanc', 'Lys blanc élégant, symbole de pureté et d\'amour.', 5, 2, 2, 40, './images/bouquet-de-lys-blanc', 'Photo d\'un lys blanc', 5),
+(21, 'Tournesol', 'Tournesol éclatant, représentant la chaleur et la lumière de l\'été.', 4.2, 2, 2, 70, './images/tournesol.jpg', 'Photo d\'un tournesol', 6),
+(22, 'Chrysanthème', 'Chrysanthème aux pétales colorés, parfait pour l\'automne.', 3.95, 1, 0, 35, './images/chrysantheme.jpg', 'Photo d\'un chrysanthème', 7),
+(23, 'Pensée violette', 'Pensée délicate aux teintes violettes, idéale pour la saison automnale.', 2.5, 3, 3, 45, './images/pensee_violette.jpg', 'Photo d\'une pensée violette', 8),
+(24, 'Poinsettia', 'Plante de Noël avec des feuilles rouges et vertes, typique de l\'hiver.', 6.5, 4, 4, 30, './images/poinsettia.jpg', 'Photo d\'un poinsettia', 2),
+(25, 'Amaryllis rouge', 'Amaryllis aux fleurs rouges profondes, parfait pour décorer pendant les fêtes d\'hiver.', 7, 4, 4, 25, './images/amaryllis_rouge.jpg', 'Photo d\'une amaryllis rouge', 3),
+(26, 'Composition surprise', 'Une composition florale surprise mélangeant des fleurs fraîches de saison pour créer une ambiance unique. Elle peut inclure des roses, des pivoines, des tulipes, et bien plus encore, selon l\'inspiration du fleuriste.', 45, 4, 1, 20, './images/composition_surprise', 'Photo d\'une composition florale printanière surprise', 5),
+(27, 'Nouveau bouquet surprise', 'Un autre bouquet surprise fait par nos soins', 14.5, 2, 1, 51, NULL, 'Un autre bouquet surprise fait par nos soins', NULL);
 
 -- --------------------------------------------------------
 
@@ -428,6 +476,17 @@ INSERT INTO `saison` (`id`, `nomSaison`, `date_debut`, `date_fin`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Doublure de structure pour la vue `selectnombre`
+-- (Voir ci-dessous la vue réelle)
+--
+DROP VIEW IF EXISTS `selectnombre`;
+CREATE TABLE IF NOT EXISTS `selectnombre` (
+`nb` bigint
+);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `type`
 --
 
@@ -466,7 +525,7 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   PRIMARY KEY (`idUtilisateur`),
   UNIQUE KEY `email` (`email`),
   KEY `idRole` (`idRole`)
-) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `utilisateur`
@@ -481,15 +540,15 @@ INSERT INTO `utilisateur` (`idUtilisateur`, `email`, `mdp`, `nom`, `prenom`, `id
 (41, 'henri.renaud@mail.com', '$2y$10$WEJIVHM8UsvdJ8jPxwXLKeghQmYKnTwub2HOoDZboawcGDRNmQbCe', 'Renaud', 'Henri', 2),
 (40, 'gabrielle.leroy@icloud.com', '$2y$10$gCSUUnz2wC8Ue2JVSUSJ6e3/wczsWx1KSOlacY8KLokeFjp/v7Ei.', 'Leroy', 'Gabrielle', 2),
 (39, 'francois.moreau@orange.fr', '$2y$10$RUFviUFbG9CatmMP266a2ecwbuW8OKlQqJnnfaqG5g5jt7IJZOnfm', 'Moreau', 'François', 1),
-(38, 'emilie.durand@hotmail.com', '$2y$10$n.Do1KqeC1i7qNNujPXsoeZXDUlSj8l9msrJdJeztFYg1MeA7HTYa', 'Durand', 'Emilie', 2),
 (36, 'charlotte.leblanc@outlook.com', '$2y$10$W37YGt.eKy2gnfW/55CQFeoQHm60WzwUpIDSaW8RvtFWzD.7TCRSO', 'LeBlanc', 'Charlotte', 2),
 (35, 'bernard.martin@yahoo.fr', '$2y$10$.ziSFBU8lkLueZyYBoFLYebDV./JQCEngV6eNjVe0zkX8m8JPq1kq', 'Martin', 'Bernard', 2),
 (34, 'alice.dupont@gmail.com', '$2y$10$CGSRBt9WrDmTIPV01Wbbxux2vPkJXP0gvsS5mnGzlY2jUTM180xtm', 'Dupont', 'Alice', 2),
-(42, 'isabelle.faure@free.fr', '$2y$10$LhfQjbV6CGZwFPDij2alCOUifOCKHd1cZF/2N0wc/SrKPoo0vSDa2', 'Faure', 'Isabelle', 2),
-(45, 'malakvreiuh@gmail.com', '$2y$10$lvE4dPNmpyH2TlFOvBVejO/sewOWpLYp96uxDtGl1JPTUiGumrbZe', 'malak', 'malak', 1),
+(42, 'isabelle.faure20@free.fr', '$2y$10$ySNQWUfWqeUG3AjSwMwjCuMZPOvbQLX49d995KSKCGRfQXtfIr4BW', 'Faure', 'Isabelle', 1),
+(45, 'malakelmokretar@gmail.com', '$2y$10$lvE4dPNmpyH2TlFOvBVejO/sewOWpLYp96uxDtGl1JPTUiGumrbZe', 'malak', 'malak', 1),
 (44, 'romain.lagarde@handballjo.com', '$2y$10$r8jpoTpU8iaNUWXs91NaX.qAucG9.jo7Cpl6JocOyomjx45gEanlm', 'Lagarde', 'Romain', 2),
 (46, 'jurybts02@lyceeaubanel.fr', '$2y$10$XC0IK48F/XHYqjLOoZcVQOYcxQYiwma7X3KdcHkOwliTOAI0w/LWi', 'JURY', 'Jury', 2),
-(47, 'jurybts01@lyceeaubanel.fr', '$2y$10$F/W1u1LHPoyK5TK8mAYowOYD69TVpKaU2/5V/aRnaSKvJg1.8y/Fy', 'JURY', 'Jury', 1);
+(47, 'jurybts01@lyceeaubanel.fr', '$2y$10$F/W1u1LHPoyK5TK8mAYowOYD69TVpKaU2/5V/aRnaSKvJg1.8y/Fy', 'JURY', 'Jury', 1),
+(48, 'doejaneytb@gmail.com', '$2y$10$j4KMid/TEyvEihKImzgzKemkZ6UKTXaXd.3vj8HTb0JFy37kuGm/.', 'Doe', 'Jane', 2);
 
 --
 -- Déclencheurs `utilisateur`
@@ -522,7 +581,7 @@ CREATE TABLE IF NOT EXISTS `utilisateur_supprime` (
   PRIMARY KEY (`id`),
   KEY `idUtilisateurSupprime` (`idUtilisateurSupprime`),
   KEY `idRole` (`idRole`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `utilisateur_supprime`
@@ -531,7 +590,8 @@ CREATE TABLE IF NOT EXISTS `utilisateur_supprime` (
 INSERT INTO `utilisateur_supprime` (`id`, `idUtilisateurSupprime`, `email`, `mdp`, `nom`, `prenom`, `idRole`, `date_supp`) VALUES
 (1, 1, 'elmokretarmalak25@gmail.com', '$2y$10$.AFGFVhZOVGdnvMaBYEqYet9yy5kjOgHUHn681/oac4gGvCtkWnM2', 'EL MOKRETAR', 'Malak', 1, '2025-04-30 11:33:12'),
 (2, 8, 'hammedikelian@gmail.com', '$2y$10$fxlqi8eIBW1UVBZ6YnjKmO.FTVpcFVon3KHR0JOBMYXmjY00SMnRS', 'kelian', 'kelian', 1, '2025-05-22 09:42:14'),
-(3, 37, 'daniel.robert@live.fr', '$2y$10$v7zklgA4RODICe6gca6q5OB5OjukHLQL4hpVvrdhS7YsNipZnoDca', 'Robert', 'Daniel', 1, '2025-06-06 21:06:40');
+(3, 37, 'daniel.robert@live.fr', '$2y$10$v7zklgA4RODICe6gca6q5OB5OjukHLQL4hpVvrdhS7YsNipZnoDca', 'Robert', 'Daniel', 1, '2025-06-06 21:06:40'),
+(4, 38, 'emilie.durand@hotmail.com', '$2y$10$n.Do1KqeC1i7qNNujPXsoeZXDUlSj8l9msrJdJeztFYg1MeA7HTYa', 'Durand', 'Emilie', 2, '2025-06-12 04:34:39');
 
 -- --------------------------------------------------------
 
@@ -582,6 +642,16 @@ DROP TABLE IF EXISTS `listerutilisateurs`;
 
 DROP VIEW IF EXISTS `listerutilisateurs`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `listerutilisateurs`  AS SELECT `utilisateur`.`idUtilisateur` AS `idUtilisateur`, `utilisateur`.`nom` AS `nom`, `utilisateur`.`prenom` AS `prenom`, `utilisateur`.`email` AS `email`, `role`.`libelle` AS `libelle` FROM (`utilisateur` join `role` on((`role`.`id` = `utilisateur`.`idRole`))) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la vue `selectnombre`
+--
+DROP TABLE IF EXISTS `selectnombre`;
+
+DROP VIEW IF EXISTS `selectnombre`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`admin`@`%` SQL SECURITY DEFINER VIEW `selectnombre`  AS SELECT count(0) AS `nb` FROM `produit` ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
